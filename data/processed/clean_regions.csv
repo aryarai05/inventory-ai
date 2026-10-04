@@ -1,0 +1,6 @@
+region_id,region_name,warehouse_id,warehouse_name,volume_weight
+REG-UK,United Kingdom (HQ Hub),WH-LON,London Main DC,0.55
+REG-WEUR,Western Europe (DE/FR),WH-RTM,Rotterdam Euro Hub,0.2
+REG-CEUR,Central & Nordic Europe,WH-RTM,Rotterdam Euro Hub,0.1
+REG-NA,North America Fulfillment,WH-MAN,Manchester Export DC,0.1
+REG-APAC,Asia-Pacific Regional,WH-MAN,Manchester Export DC,0.05

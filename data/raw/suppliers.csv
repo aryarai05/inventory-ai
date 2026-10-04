@@ -1,6 +1,7 @@
-supplier_id,supplier_name,lead_time_mean,lead_time_std,reliability_score
-SUPP_01,Apex Micro Technologies,12.0,2.1,0.96
-SUPP_02,Global Fabric & Textiles,18.0,3.4,0.91
-SUPP_03,HomeCraft Industries,9.0,1.5,0.98
-SUPP_04,BioHealth Formulations,7.0,1.2,0.99
-SUPP_05,Vanguard Workspace Systems,14.0,2.5,0.93
+supplier_id,supplier_name,lead_time_days,reliability_score,min_order_qty,country
+SUP-101,Sheffield Glassware & Ceramics,10,0.96,50,United Kingdom
+SUP-102,Birmingham Packaging & Luggage,7,0.98,100,United Kingdom
+SUP-103,Coventry Lightcraft & Candles,12,0.94,40,United Kingdom
+SUP-104,Manchester Fine Paper & Print,8,0.97,75,United Kingdom
+SUP-105,Rotterdam Global Novelties BV,15,0.91,60,Netherlands
+SUP-106,Lyon Artisan Decor SARL,14,0.93,50,France

@@ -32,7 +32,7 @@ class DataLoader:
         self.db_manager.initialize_schema(schema_file)
         data = self.load_raw_files()
         for table_name, df in data.items():
-            self.db_manager.load_table(table_name, df, if_exists="append")
+            self.db_manager.load_table(table_name, df, if_exists="replace")
 
     def clean_and_merge_master(self) -> pd.DataFrame:
         """
@@ -52,8 +52,15 @@ class DataLoader:
         inventory["date"] = pd.to_datetime(inventory["date"])
 
         # 2. Check and remove duplicates
-        sales = sales.drop_duplicates(subset=["date", "product_id", "region_id"])
-        inventory = inventory.drop_duplicates(subset=["date", "product_id", "warehouse_id"])
+        if "region_id" in sales.columns:
+            sales = sales.drop_duplicates(subset=["date", "product_id", "region_id"])
+        else:
+            sales = sales.drop_duplicates(subset=["date", "product_id"])
+
+        if "warehouse_id" not in inventory.columns and "store_id" in inventory.columns:
+            inventory["warehouse_id"] = inventory["store_id"]
+        inv_subset = ["date", "product_id", "warehouse_id" if "warehouse_id" in inventory.columns else "region_id"]
+        inventory = inventory.drop_duplicates(subset=inv_subset)
 
         # 3. Aggregate sales to product-date level for forecasting demand
         daily_sales = sales.groupby(["date", "product_id"]).agg(
@@ -88,8 +95,14 @@ class DataLoader:
         )
 
         # 6. Merge inventory beginning / ending stock
-        # Select key inventory metrics
-        inv_subset = inventory[["date", "product_id", "beginning_inventory", "ending_inventory", "stockout_flag"]].copy()
+        if "beginning_inventory" not in inventory.columns:
+            inventory["beginning_inventory"] = inventory["ending_inventory"] if "ending_inventory" in inventory.columns else inventory.get("current_inventory", 50)
+        if "ending_inventory" not in inventory.columns:
+            inventory["ending_inventory"] = inventory.get("current_inventory", 50)
+        if "stockout_flag" not in inventory.columns:
+            inventory["stockout_flag"] = 0
+
+        inv_subset = inventory[["date", "product_id", "beginning_inventory", "ending_inventory", "stockout_flag"]].drop_duplicates(subset=["date", "product_id"]).copy()
         merged = merged.merge(inv_subset, on=["date", "product_id"], how="left")
 
         # 7. Handle missing values

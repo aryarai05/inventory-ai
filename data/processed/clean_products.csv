@@ -1,0 +1,61 @@
+product_id,product_name,category,supplier_id,unit_price,unit_cost,holding_cost_rate,stockout_penalty_multiplier,target_service_level,lead_time_days
+23843,"Paper Craft , Little Birdie",Stationery & Craft,SUP-104,2.08,1.18,0.2,2.5,0.95,8
+23166,Medium Ceramic Top Storage Jar,Kitchen & Dining,SUP-101,1.25,0.79,0.2,2.5,0.95,10
+22197,Small Popcorn Holder,Kitchen & Dining,SUP-101,0.99,0.6,0.2,2.5,0.95,10
+84077,World War 2 Gliders Asstd Designs,Home Decor & Living,SUP-106,0.99,0.59,0.2,2.5,0.95,14
+85099B,Jumbo Bag Red Retrospot,Storage & Bags,SUP-102,2.08,1.12,0.2,2.5,0.95,7
+85123A,White Hanging Heart T-Light Holder,Lighting & Candles,SUP-103,2.95,1.59,0.2,2.5,0.95,12
+84879,Assorted Colour Bird Ornament,Home Decor & Living,SUP-106,1.69,0.89,0.2,2.5,0.95,14
+21212,Pack Of 72 Retrospot Cake Cases,Kitchen & Dining,SUP-101,0.99,0.62,0.2,2.5,0.95,10
+23084,Rabbit Night Light,Lighting & Candles,SUP-103,2.08,1.23,0.2,2.5,0.95,12
+22492,Mini Paint Set Vintage,Home Decor & Living,SUP-106,0.99,0.6,0.2,2.5,0.95,14
+22616,Pack Of 12 London Tissues,Stationery & Craft,SUP-104,0.99,0.52,0.2,2.5,0.95,8
+21977,Pack Of 60 Pink Paisley Cake Cases,Kitchen & Dining,SUP-101,0.99,0.63,0.2,2.5,0.95,10
+22178,Victorian Glass Hanging T-Light,Lighting & Candles,SUP-103,1.25,0.77,0.2,2.5,0.95,12
+15036,Assorted Colours Silk Fan,Gifts & Novelties,SUP-105,0.99,0.54,0.2,2.5,0.95,15
+17003,Brocade Ring Purse,Storage & Bags,SUP-102,0.99,0.54,0.2,2.5,0.95,7
+21915,Red  Harmonica In Box,Storage & Bags,SUP-102,1.25,0.68,0.2,2.5,0.95,7
+22386,Jumbo Bag Pink Polkadot,Storage & Bags,SUP-102,2.08,1.16,0.2,2.5,0.95,7
+23203,Jumbo Bag Doiley Patterns,Storage & Bags,SUP-102,2.08,1.21,0.2,2.5,0.95,7
+20725,Lunch Bag Red Retrospot,Storage & Bags,SUP-102,1.65,0.94,0.2,2.5,0.95,7
+22086,Paper Chain Kit 50'S Christmas,Stationery & Craft,SUP-104,2.95,1.64,0.2,2.5,0.95,8
+84946,Antique Silver Tea Glass Etched,Kitchen & Dining,SUP-101,1.25,0.74,0.2,2.5,0.95,10
+47566,Party Bunting,Kitchen & Dining,SUP-101,4.95,2.66,0.2,2.5,0.95,10
+84991,60 Teatime Fairy Cake Cases,Kitchen & Dining,SUP-101,0.99,0.55,0.2,2.5,0.95,10
+22355,Charlotte Bag Suki Design,Storage & Bags,SUP-102,0.99,0.56,0.2,2.5,0.95,7
+22469,Heart Of Wicker Small,Home Decor & Living,SUP-106,1.65,0.95,0.2,2.5,0.95,14
+20724,Red Retrospot Charlotte Bag,Storage & Bags,SUP-102,0.99,0.61,0.2,2.5,0.95,7
+85099F,Jumbo Bag Strawberry,Storage & Bags,SUP-102,2.08,1.13,0.2,2.5,0.95,7
+84755,Colour Glass T-Light Holder Hanging,Lighting & Candles,SUP-103,0.99,0.58,0.2,2.5,0.95,12
+22961,Jam Making Set Printed,Kitchen & Dining,SUP-101,1.45,0.86,0.2,2.5,0.95,10
+22693,Grow A Flytrap Or Sunflower In Tin,Kitchen & Dining,SUP-101,1.25,0.66,0.2,2.5,0.95,10
+22952,60 Cake Cases Vintage Christmas,Kitchen & Dining,SUP-101,0.99,0.59,0.2,2.5,0.95,10
+21213,Pack Of 72 Skull Cake Cases,Kitchen & Dining,SUP-101,0.99,0.54,0.2,2.5,0.95,10
+22151,Place Setting White Heart,Kitchen & Dining,SUP-101,0.99,0.52,0.2,2.5,0.95,10
+23199,Jumbo Bag Apples,Storage & Bags,SUP-102,2.08,1.32,0.2,2.5,0.95,7
+21790,Vintage Snap Cards,Home Decor & Living,SUP-106,0.99,0.63,0.2,2.5,0.95,14
+22629,Spaceboy Lunch Box,Storage & Bags,SUP-102,1.95,1.2,0.2,2.5,0.95,7
+21731,Red Toadstool Led Night Light,Lighting & Candles,SUP-103,1.65,0.92,0.2,2.5,0.95,12
+85099C,Jumbo  Bag Baroque Black White,Storage & Bags,SUP-102,2.08,1.11,0.2,2.5,0.95,7
+84568,Girls Alphabet Iron On Patches,Home Decor & Living,SUP-106,0.99,0.6,0.2,2.5,0.95,14
+22423,Regency Cakestand 3 Tier,Kitchen & Dining,SUP-101,12.75,7.3,0.2,2.5,0.95,10
+21931,Jumbo Storage Bag Suki,Storage & Bags,SUP-102,2.08,1.11,0.2,2.5,0.95,7
+71459,Hanging Jam Jar T-Light Holder,Kitchen & Dining,SUP-101,0.99,0.57,0.2,2.5,0.95,10
+23201,Jumbo Bag Alphabet,Storage & Bags,SUP-102,2.08,1.09,0.2,2.5,0.95,7
+84992,72 Sweetheart Fairy Cake Cases,Kitchen & Dining,SUP-101,0.99,0.62,0.2,2.5,0.95,10
+16014,Small Chinese Style Scissor,Home Decor & Living,SUP-106,0.99,0.55,0.2,2.5,0.95,14
+20719,Woodland Charlotte Bag,Storage & Bags,SUP-102,0.99,0.59,0.2,2.5,0.95,7
+21080,Set/20 Red Retrospot Paper Napkins,Stationery & Craft,SUP-104,0.99,0.55,0.2,2.5,0.95,8
+23209,Lunch Bag Doiley Pattern,Storage & Bags,SUP-102,1.65,0.96,0.2,2.5,0.95,7
+20668,Disco Ball Christmas Decoration,Gifts & Novelties,SUP-105,0.99,0.58,0.2,2.5,0.95,15
+22993,Set Of 4 Pantry Jelly Moulds,Kitchen & Dining,SUP-101,1.25,0.68,0.2,2.5,0.95,10
+22411,Jumbo Shopper Vintage Red Paisley,Home Decor & Living,SUP-106,2.08,1.32,0.2,2.5,0.95,14
+22383,Lunch Bag Suki  Design,Storage & Bags,SUP-102,1.65,1.01,0.2,2.5,0.95,7
+22969,Homemade Jam Scented Candles,Kitchen & Dining,SUP-101,1.45,0.92,0.2,2.5,0.95,10
+84978,Hanging Heart Jar T-Light Holder,Kitchen & Dining,SUP-101,1.25,0.78,0.2,2.5,0.95,10
+22998,Travel Card Wallet Keep Calm,Home Decor & Living,SUP-106,0.99,0.59,0.2,2.5,0.95,14
+21975,Pack Of 60 Dinosaur Cake Cases,Kitchen & Dining,SUP-101,0.99,0.62,0.2,2.5,0.95,10
+21181,Please One Person Metal Sign,Home Decor & Living,SUP-106,2.1,1.11,0.2,2.5,0.95,14
+20727,Lunch Bag  Black Skull.,Storage & Bags,SUP-102,1.65,0.9,0.2,2.5,0.95,7
+21175,Gin + Tonic Diet Metal Sign,Home Decor & Living,SUP-106,2.55,1.34,0.2,2.5,0.95,14
+23206,Lunch Bag Apple Design,Storage & Bags,SUP-102,1.65,0.92,0.2,2.5,0.95,7

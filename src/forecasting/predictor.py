@@ -40,6 +40,8 @@ class DemandPredictor:
         recent_data = recent_data.copy()
         recent_data["date"] = pd.to_datetime(recent_data["date"])
         last_date = recent_data["date"].max()
+        if pd.isna(last_date):
+            last_date = pd.Timestamp("2025-12-31")
         future_dates = pd.date_range(last_date + pd.Timedelta(days=1), periods=horizon_days)
 
         # Z-score multiplier for normal distribution interval

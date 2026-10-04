@@ -1,47 +1,47 @@
 [
   {
     "Model": "5. LightGBM (Tuned)",
-    "MAE": 5.0,
-    "RMSE": 7.42,
-    "MAPE": 1609518.49,
-    "WAPE": 17.51,
-    "Bias_Pct": -0.26,
-    "Train_Time_Sec": 3.654
+    "MAE": 4.473,
+    "RMSE": 6.374,
+    "MAPE": 39889.5,
+    "WAPE": 20.29,
+    "Bias_Pct": -1.4,
+    "Train_Time_Sec": 4.639
   },
   {
     "Model": "4. Random Forest",
-    "MAE": 5.337,
-    "RMSE": 8.053,
-    "MAPE": 1962582.45,
-    "WAPE": 18.69,
-    "Bias_Pct": 1.67,
-    "Train_Time_Sec": 8.164
+    "MAE": 4.692,
+    "RMSE": 6.71,
+    "MAPE": 51663.02,
+    "WAPE": 21.28,
+    "Bias_Pct": -0.95,
+    "Train_Time_Sec": 8.622
   },
   {
     "Model": "3. Ridge Regression",
-    "MAE": 6.226,
-    "RMSE": 9.604,
-    "MAPE": 2756289.4,
-    "WAPE": 21.81,
-    "Bias_Pct": -0.57,
-    "Train_Time_Sec": 0.11
+    "MAE": 5.452,
+    "RMSE": 7.933,
+    "MAPE": 51666.31,
+    "WAPE": 24.73,
+    "Bias_Pct": -1.3,
+    "Train_Time_Sec": 0.158
   },
   {
     "Model": "2. Moving Average (7D)",
-    "MAE": 8.005,
-    "RMSE": 12.18,
-    "MAPE": 3446958.48,
-    "WAPE": 28.04,
-    "Bias_Pct": 0.77,
+    "MAE": 7.449,
+    "RMSE": 10.932,
+    "MAPE": 83454.73,
+    "WAPE": 33.79,
+    "Bias_Pct": -0.93,
     "Train_Time_Sec": 0.0
   },
   {
     "Model": "1. Naive (Lag 7)",
-    "MAE": 8.601,
-    "RMSE": 14.886,
-    "MAPE": 3870331.85,
-    "WAPE": 30.12,
-    "Bias_Pct": 1.5,
+    "MAE": 7.974,
+    "RMSE": 12.252,
+    "MAPE": 109140.08,
+    "WAPE": 36.18,
+    "Bias_Pct": -2.21,
     "Train_Time_Sec": 0.0
   }
 ]

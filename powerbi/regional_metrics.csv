@@ -1,6 +1,6 @@
 region_id,region_name,warehouse_id,active_products,total_units_sold,total_revenue,total_unmet_units,stockout_rate_pct
-REG_WC,North America - West,WH_WESTCOAST,50,387959,48435760.77,5728,1.45
-REG_NE,North America - East,WH_NORTHEAST,50,371401,46134679.57,5499,1.46
-REG_SE,Southeast Distribution,WH_SOUTHEAST,50,338191,42217557.86,4994,1.46
-REG_MW,Midwest Hub,WH_CENTRAL,50,306190,38220494.76,4517,1.45
-REG_NW,Pacific Northwest,WH_NORTHWEST,50,274117,34182272.63,4053,1.46
+REG-UK,United Kingdom (HQ Hub),WH-LON,60,622150,1008389.78,44171,6.63
+REG-WEUR,Western Europe (DE/FR),WH-RTM,60,229675,373587.64,13584,5.58
+REG-NA,North America Fulfillment,WH-MAN,60,122441,199461.52,3738,2.96
+REG-CEUR,Central & Nordic Europe,WH-RTM,60,120829,196672.12,4017,3.22
+REG-APAC,Asia-Pacific Regional,WH-MAN,60,79257,131525.7,725,0.91

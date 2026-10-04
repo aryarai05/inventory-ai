@@ -56,8 +56,11 @@ class InventoryRiskEngine:
             suffixes=("", "_meta")
         )
 
-        # Standard deviation of demand estimated from recent sales variance
-        recent_std = inv_copy.groupby("product_id")["sales_quantity"].std().fillna(3.0).to_dict()
+        # Standard deviation of demand estimated from recent sales variance if available
+        if "sales_quantity" in inv_copy.columns:
+            recent_std = inv_copy.groupby("product_id")["sales_quantity"].std().fillna(3.0).to_dict()
+        else:
+            recent_std = {}
 
         risk_rows = []
         for _, row in merged.iterrows():

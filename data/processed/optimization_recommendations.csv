@@ -1,51 +1,61 @@
 product_id,product_name,category,current_inventory,safety_stock,optimal_reorder_qty,planned_orders_count,total_holding_cost,total_ordering_cost,total_stockout_cost,total_cost,optimization_status
-PROD_007,USB-C Dual Docking Station,Electronics,10,65,125,1,8.24,150.0,24281.35,24439.6,Optimal
-PROD_004,Mechanical RGB Gaming Keyboard,Electronics,132,111,264,1,19.8,150.0,26238.09,26407.89,Optimal
-PROD_047,Surge Protector Power Strip (12-Outlet),Office & Industrial,59,64,128,1,2.86,150.0,3378.21,3531.07,Optimal
-PROD_023,High-Speed Blender 1200W,Home & Kitchen,130,106,187,1,10.07,150.0,25410.75,25570.82,Optimal
-PROD_022,XL Digital Air Fryer 6Qt,Home & Kitchen,73,54,85,1,7.33,150.0,7044.84,7202.17,Optimal
-PROD_049,Dual Monitor Adjustable Arm Mount,Office & Industrial,261,141,205,1,14.94,150.0,13511.04,13675.98,Optimal
-PROD_024,10-Piece Non-Stick Cookware Set,Home & Kitchen,146,110,36,1,13.31,150.0,32670.54,32833.85,Optimal
-PROD_036,Ionic Ceramic Hair Dryer,Health & Personal Care,257,103,250,1,21.71,150.0,1206.36,1378.07,Optimal
-PROD_037,Mineral SPF 50 Broad Sunscreen,Health & Personal Care,126,46,131,1,3.03,150.0,0.0,153.03,Optimal
-PROD_038,High-Density Eco Yoga Mat,Health & Personal Care,98,36,88,1,4.53,150.0,0.0,154.53,Optimal
-PROD_019,Fleece Zip-Up Hoodie,Apparel & Fashion,101,45,0,0,3.26,0.0,4794.66,4797.92,Optimal
-PROD_032,Deep Tissue Muscle Massage Gun,Health & Personal Care,138,51,80,1,12.97,150.0,614.79,777.76,Optimal
-PROD_021,Barista Espresso Coffee Machine,Home & Kitchen,284,105,111,1,87.87,150.0,21061.56,21299.43,Optimal
-PROD_002,Noise-Canceling Wireless Headphones,Electronics,164,50,58,1,40.9,150.0,5777.67,5968.57,Optimal
-PROD_046,Under-Desk 3-Drawer Steel Cabinet,Office & Industrial,203,97,0,0,23.74,0.0,20369.79,20393.53,Optimal
-PROD_029,Countertop Convection Microwave,Home & Kitchen,433,139,122,1,91.19,150.0,11078.31,11319.5,Optimal
-PROD_042,Electric Dual-Motor Standing Desk,Office & Industrial,178,62,0,0,75.28,0.0,41068.17,41143.45,Optimal
-PROD_026,HEPA Filter Air Purifier,Home & Kitchen,149,39,51,1,21.08,150.0,0.0,171.08,Optimal
-PROD_020,Cushioned Athletic Socks (6-Pack),Apparel & Fashion,294,104,95,1,4.35,150.0,74.67,229.02,Optimal
-PROD_003,Ultra-HD 27-inch Curved Monitor,Electronics,309,92,44,1,131.89,150.0,13961.81,14243.69,Optimal
-PROD_015,Organic Cotton Everyday T-Shirt,Apparel & Fashion,194,48,0,0,4.1,0.0,108.36,112.46,Optimal
-PROD_043,Cross-Cut Heavy Duty Paper Shredder,Office & Industrial,234,52,0,0,37.75,0.0,0.0,37.75,Optimal
-PROD_016,Merino Wool Crewneck Sweater,Apparel & Fashion,215,99,0,0,24.85,0.0,0.0,24.85,Optimal
-PROD_013,Classic Straight-Fit Denim Jeans,Apparel & Fashion,462,114,0,0,43.82,0.0,0.0,43.82,Optimal
-PROD_011,Men's All-Weather Parka,Apparel & Fashion,330,69,0,0,82.2,0.0,0.0,82.2,Optimal
-PROD_018,Waterproof Trail Hiking Boots,Apparel & Fashion,271,56,0,0,63.7,0.0,0.0,63.7,Optimal
-PROD_006,4K Streaming Media Player,Electronics,244,73,0,1,13.59,150.0,0.0,163.59,Optimal
-PROD_033,Anti-Aging Vitamin C Serum 30ml,Health & Personal Care,148,34,0,1,3.74,150.0,0.0,153.74,Optimal
-PROD_034,Daily Multivitamin Tablets (180ct),Health & Personal Care,173,41,0,1,3.59,150.0,0.0,153.59,Optimal
-PROD_035,Digital Arm Blood Pressure Monitor,Health & Personal Care,327,75,0,1,19.16,150.0,0.0,169.16,Optimal
-PROD_039,Comprehensive First Aid Kit,Health & Personal Care,214,48,0,1,7.24,150.0,0.0,157.24,Optimal
-PROD_028,Dimmable LED Architect Desk Lamp,Home & Kitchen,225,47,0,1,11.62,150.0,0.0,161.62,Optimal
-PROD_009,Smart Home Security Camera,Electronics,151,38,0,1,19.64,150.0,0.0,169.64,Optimal
-PROD_031,Sonic Electric Toothbrush,Health & Personal Care,623,104,0,1,53.89,150.0,0.0,203.89,Optimal
-PROD_050,Adjustable Footrest with Massage Rollers,Office & Industrial,572,130,0,1,30.03,150.0,0.0,180.03,Optimal
-PROD_040,Hydrating Facial Moisturizer Cream,Health & Personal Care,561,89,0,0,21.67,0.0,0.0,21.67,Optimal
-PROD_048,Heavy-Duty Packaging Tape (6-Pack),Office & Industrial,493,96,0,0,14.38,0.0,0.0,14.38,Optimal
-PROD_044,Thermal Shipping Label Printer,Office & Industrial,529,114,0,0,111.37,0.0,0.0,111.37,Optimal
-PROD_045,Magnetic Dry Erase Whiteboard 48x36,Office & Industrial,603,124,0,0,81.32,0.0,0.0,81.32,Optimal
-PROD_005,Smart Fitness Tracker Band,Electronics,404,64,0,0,61.01,0.0,0.0,61.01,Optimal
-PROD_025,Laser-Navigating Robot Vacuum,Home & Kitchen,591,97,0,0,426.24,0.0,0.0,426.24,Optimal
-PROD_041,Ergonomic Mesh Executive Chair,Office & Industrial,622,108,0,0,314.96,0.0,0.0,314.96,Optimal
-PROD_027,Bamboo Luxury Bed Sheets (Queen),Home & Kitchen,839,116,0,0,113.6,0.0,0.0,113.6,Optimal
-PROD_008,External 2TB SSD Drive,Electronics,683,95,0,0,223.59,0.0,0.0,223.59,Optimal
-PROD_017,Seamless High-Rise Yoga Leggings,Apparel & Fashion,529,80,0,0,43.2,0.0,0.0,43.2,Optimal
-PROD_010,Bluetooth Portable Speaker,Electronics,456,60,0,0,69.86,0.0,0.0,69.86,Optimal
-PROD_030,German Steel Kitchen Knife Set,Home & Kitchen,715,108,0,0,168.02,0.0,0.0,168.02,Optimal
-PROD_014,Breathable Running Shoes,Apparel & Fashion,1128,179,0,0,222.63,0.0,0.0,222.63,Optimal
-PROD_001,ProBook 15.6-inch Laptop,Electronics,704,91,0,0,2689.25,0.0,0.0,2689.25,Optimal
-PROD_012,Women's Thermal Puffer Jacket,Apparel & Fashion,743,87,0,0,272.39,0.0,0.0,272.39,Optimal
+21080,Set/20 Red Retrospot Paper Napkins,Stationery & Craft,0,35,0,0,0.0,0.0,311.85,311.85,Optimal
+21213,Pack Of 72 Skull Cake Cases,Kitchen & Dining,0,36,0,0,0.0,0.0,311.85,311.85,Optimal
+21790,Vintage Snap Cards,Home Decor & Living,0,38,0,0,0.0,0.0,311.85,311.85,Optimal
+21977,Pack Of 60 Pink Paisley Cake Cases,Kitchen & Dining,0,36,0,0,0.0,0.0,311.85,311.85,Optimal
+22086,Paper Chain Kit 50'S Christmas,Stationery & Craft,0,35,90,1,0.2,150.0,531.0,681.2,Optimal
+22197,Small Popcorn Holder,Kitchen & Dining,0,36,0,0,0.0,0.0,311.85,311.85,Optimal
+22355,Charlotte Bag Suki Design,Storage & Bags,0,34,105,1,0.1,150.0,155.93,306.02,Optimal
+22492,Mini Paint Set Vintage,Home Decor & Living,0,38,0,0,0.0,0.0,311.85,311.85,Optimal
+22993,Set Of 4 Pantry Jelly Moulds,Kitchen & Dining,0,36,0,0,0.0,0.0,393.75,393.75,Optimal
+84077,World War 2 Gliders Asstd Designs,Home Decor & Living,0,43,0,0,0.0,0.0,354.63,354.63,Optimal
+84879,Assorted Colour Bird Ornament,Home Decor & Living,0,55,0,0,0.0,0.0,772.11,772.11,Optimal
+84946,Antique Silver Tea Glass Etched,Kitchen & Dining,0,29,0,0,0.0,0.0,315.75,315.75,Optimal
+84992,72 Sweetheart Fairy Cake Cases,Kitchen & Dining,0,21,0,0,0.0,0.0,179.73,179.73,Optimal
+85099C,Jumbo  Bag Baroque Black White,Storage & Bags,0,24,81,1,0.15,150.0,210.91,361.07,Optimal
+22423,Regency Cakestand 3 Tier,Kitchen & Dining,1,36,60,1,0.36,150.0,2849.62,2999.99,Optimal
+20719,Woodland Charlotte Bag,Storage & Bags,3,34,105,1,0.1,150.0,151.47,301.57,Optimal
+20725,Lunch Bag Red Retrospot,Storage & Bags,5,34,105,1,0.16,150.0,247.5,397.66,Optimal
+20668,Disco Ball Christmas Decoration,Gifts & Novelties,6,39,0,0,0.0,0.0,302.94,302.94,Optimal
+22469,Heart Of Wicker Small,Home Decor & Living,6,38,0,0,0.0,0.0,504.9,504.9,Optimal
+71459,Hanging Jam Jar T-Light Holder,Kitchen & Dining,4,25,0,0,0.0,0.0,211.86,211.86,Optimal
+23203,Jumbo Bag Doiley Patterns,Storage & Bags,9,34,105,1,0.21,150.0,299.52,449.73,Optimal
+23206,Lunch Bag Apple Design,Storage & Bags,11,34,105,1,0.16,150.0,232.65,382.81,Optimal
+21212,Pack Of 72 Retrospot Cake Cases,Kitchen & Dining,12,36,0,0,0.0,0.0,294.03,294.03,Optimal
+22616,Pack Of 12 London Tissues,Stationery & Craft,12,35,0,0,0.0,0.0,294.03,294.03,Optimal
+22969,Homemade Jam Scented Candles,Kitchen & Dining,12,36,0,0,0.0,0.0,430.65,430.65,Optimal
+21181,Please One Person Metal Sign,Home Decor & Living,13,38,0,0,0.0,0.0,620.55,620.55,Optimal
+23084,Rabbit Night Light,Lighting & Candles,13,37,0,0,0.0,0.0,614.64,614.64,Optimal
+23199,Jumbo Bag Apples,Storage & Bags,13,34,105,1,0.23,150.0,287.04,437.27,Optimal
+84978,Hanging Heart Jar T-Light Holder,Kitchen & Dining,9,22,0,0,0.0,0.0,220.63,220.63,Optimal
+17003,Brocade Ring Purse,Storage & Bags,16,34,105,1,0.09,150.0,132.17,282.26,Optimal
+23201,Jumbo Bag Alphabet,Storage & Bags,19,34,105,1,0.19,150.0,268.32,418.51,Optimal
+22693,Grow A Flytrap Or Sunflower In Tin,Kitchen & Dining,28,36,0,0,0.0,0.0,341.25,341.25,Optimal
+20724,Red Retrospot Charlotte Bag,Storage & Bags,30,34,105,1,0.11,150.0,111.38,261.49,Optimal
+85099F,Jumbo Bag Strawberry,Storage & Bags,27,28,94,1,0.19,150.0,165.92,316.12,Optimal
+16014,Small Chinese Style Scissor,Home Decor & Living,41,38,0,0,0.01,0.0,250.97,250.98,Optimal
+21931,Jumbo Storage Bag Suki,Storage & Bags,44,34,105,1,0.22,150.0,190.32,340.54,Optimal
+85123A,White Hanging Heart T-Light Holder,Lighting & Candles,75,62,55,1,0.08,150.0,981.38,1131.45,Optimal
+21975,Pack Of 60 Dinosaur Cake Cases,Kitchen & Dining,48,36,0,0,0.02,0.0,240.57,240.59,Optimal
+85099B,Jumbo Bag Red Retrospot,Storage & Bags,80,57,181,1,0.38,150.0,288.13,438.51,Optimal
+22998,Travel Card Wallet Keep Calm,Home Decor & Living,49,38,0,0,0.02,0.0,239.09,239.1,Optimal
+23209,Lunch Bag Doiley Pattern,Storage & Bags,38,25,77,1,0.15,150.0,85.93,236.08,Optimal
+22383,Lunch Bag Suki  Design,Storage & Bags,55,34,105,1,0.22,150.0,123.75,273.97,Optimal
+21175,Gin + Tonic Diet Metal Sign,Home Decor & Living,60,38,0,0,0.07,0.0,573.75,573.82,Optimal
+22961,Jam Making Set Printed,Kitchen & Dining,69,36,0,0,0.06,0.0,306.68,306.73,Optimal
+84568,Girls Alphabet Iron On Patches,Home Decor & Living,44,24,0,0,0.03,0.0,129.22,129.26,Optimal
+20727,Lunch Bag  Black Skull.,Storage & Bags,74,34,105,1,0.23,150.0,76.72,226.95,Optimal
+21731,Red Toadstool Led Night Light,Lighting & Candles,82,37,0,0,0.09,0.0,316.8,316.89,Optimal
+22411,Jumbo Shopper Vintage Red Paisley,Home Decor & Living,83,38,0,0,0.14,0.0,396.24,396.38,Optimal
+22151,Place Setting White Heart,Kitchen & Dining,86,36,0,0,0.06,0.0,184.14,184.2,Optimal
+22952,60 Cake Cases Vintage Christmas,Kitchen & Dining,86,36,0,0,0.07,0.0,184.14,184.21,Optimal
+84991,60 Teatime Fairy Cake Cases,Kitchen & Dining,88,36,0,0,0.06,0.0,182.31,182.37,Optimal
+47566,Party Bunting,Kitchen & Dining,89,34,57,1,0.46,150.0,399.32,549.77,Optimal
+22629,Spaceboy Lunch Box,Storage & Bags,100,34,105,1,0.39,150.0,14.62,165.02,Optimal
+21915,Red  Harmonica In Box,Storage & Bags,103,34,105,1,0.23,150.0,3.75,153.98,Optimal
+84755,Colour Glass T-Light Holder Hanging,Lighting & Candles,98,32,0,0,0.09,0.0,120.05,120.14,Optimal
+15036,Assorted Colours Silk Fan,Gifts & Novelties,126,39,0,0,0.14,0.0,124.74,124.88,Optimal
+23843,"Paper Craft , Little Birdie",Stationery & Craft,316,74,0,1,0.98,150.0,0.0,150.98,Optimal
+22178,Victorian Glass Hanging T-Light,Lighting & Candles,182,37,0,0,0.43,0.0,52.5,52.93,Optimal
+22386,Jumbo Bag Pink Polkadot,Storage & Bags,148,34,0,1,0.51,150.0,0.0,150.51,Optimal
+23166,Medium Ceramic Top Storage Jar,Kitchen & Dining,306,36,0,0,1.17,0.0,0.0,1.17,Optimal

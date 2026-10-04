@@ -53,3 +53,5 @@ models/*.joblib
 
 # SQLite database (generated locally by pipeline)
 data/inventory.db
+*.zip
+*.xlsx

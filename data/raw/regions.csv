@@ -1,6 +1,6 @@
-region_id,region_name,warehouse_id,demand_weight
-REG_NE,North America - East,WH_NORTHEAST,1.15
-REG_WC,North America - West,WH_WESTCOAST,1.2
-REG_MW,Midwest Hub,WH_CENTRAL,0.95
-REG_SE,Southeast Distribution,WH_SOUTHEAST,1.05
-REG_NW,Pacific Northwest,WH_NORTHWEST,0.85
+region_id,region_name,warehouse_id,warehouse_name,volume_weight
+REG-UK,United Kingdom (HQ Hub),WH-LON,London Main DC,0.55
+REG-WEUR,Western Europe (DE/FR),WH-RTM,Rotterdam Euro Hub,0.2
+REG-CEUR,Central & Nordic Europe,WH-RTM,Rotterdam Euro Hub,0.1
+REG-NA,North America Fulfillment,WH-MAN,Manchester Export DC,0.1
+REG-APAC,Asia-Pacific Regional,WH-MAN,Manchester Export DC,0.05
