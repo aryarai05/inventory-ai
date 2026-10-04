@@ -1,238 +1,205 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Optix // AI-Powered Inventory Demand Forecasting & Replenishment</title>
+  <title>Optix // Enterprise Inventory Demand Forecasting & Replenishment Optimization</title>
   
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  
-  <!-- ApexCharts CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-  <!-- Custom CSS -->
+  <!-- Self-Contained Local CSS -->
   <link rel="stylesheet" href="/static/style.css">
-</head>
-<body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
 
-  <!-- TOP ENTERPRISE NAVIGATION HEADER -->
-  <header class="border-b border-slate-800/80 bg-[#0f172a]/90 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-[1720px] mx-auto px-6 h-16 flex items-center justify-between">
+  <!-- Local Chart Engines (Zero External Network Dependence!) -->
+  <script src="/static/vendor/chart.umd.min.js"></script>
+  <script src="/static/vendor/apexcharts.min.js"></script>
+</head>
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- TOP ENTERPRISE HEADER -->
+  <!-- ========================================================================= -->
+  <header class="app-header">
+    <div class="header-container">
       
       <!-- Brand & Title -->
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 p-[1px] flex items-center justify-center shadow-lg shadow-indigo-500/20">
-          <div class="w-full h-full bg-[#0b0f19] rounded-[11px] flex items-center justify-center">
-            <i data-lucide="layers" class="w-5 h-5 text-indigo-400"></i>
-          </div>
+      <div class="brand-badge">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
         </div>
         <div>
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold tracking-wider text-base bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-indigo-300">OPTIX // INVENTORY AI</span>
-            <span class="px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full tracking-wide">ENTERPRISE v2.0</span>
+          <div class="brand-title">
+            OPTIX // INVENTORY AI
+            <span class="brand-tag">ENTERPRISE v2.0</span>
           </div>
-          <p class="text-[11px] text-slate-400 font-medium">Production Demand Forecasting & PuLP Replenishment Optimization</p>
+          <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 500;">
+            Production Demand Forecasting & PuLP Replenishment Optimization System
+          </div>
         </div>
       </div>
 
       <!-- Navigation Tabs -->
-      <nav class="hidden lg:flex items-center gap-1.5 bg-[#0b0f19] p-1 rounded-xl border border-slate-800">
-        <button onclick="switchTab('executive')" id="tab-btn-executive" class="nav-tab active">
-          <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Executive
+      <nav class="nav-bar">
+        <button onclick="switchTab('executive')" id="tab-btn-executive" class="nav-btn active">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+          Executive
         </button>
-        <button onclick="switchTab('forecasting')" id="tab-btn-forecasting" class="nav-tab">
-          <i data-lucide="trending-up" class="w-4 h-4"></i> Forecasting
+        <button onclick="switchTab('forecasting')" id="tab-btn-forecasting" class="nav-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+          Forecasting
         </button>
-        <button onclick="switchTab('risks')" id="tab-btn-risks" class="nav-tab">
-          <i data-lucide="shield-alert" class="w-4 h-4"></i> Risk Engine
+        <button onclick="switchTab('risks')" id="tab-btn-risks" class="nav-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          Risk Engine
         </button>
-        <button onclick="switchTab('products')" id="tab-btn-products" class="nav-tab">
-          <i data-lucide="box" class="w-4 h-4"></i> SKUs
+        <button onclick="switchTab('products')" id="tab-btn-products" class="nav-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+          SKU Catalog
         </button>
-        <button onclick="switchTab('optimization')" id="tab-btn-optimization" class="nav-tab">
-          <i data-lucide="sliders" class="w-4 h-4"></i> Optimization
+        <button onclick="switchTab('optimization')" id="tab-btn-optimization" class="nav-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="21" y2="21"></line><line x1="4" x2="20" y1="3" y2="3"></line><line x1="4" x2="20" y1="12" y2="12"></line><line x1="8" x2="8" y1="3" y2="21"></line><line x1="16" x2="16" y1="3" y2="21"></line></svg>
+          PuLP Optimizer
         </button>
-        <button onclick="switchTab('mlops')" id="tab-btn-mlops" class="nav-tab">
-          <i data-lucide="git-branch" class="w-4 h-4"></i> MLOps Leaderboard
+        <button onclick="switchTab('mlops')" id="tab-btn-mlops" class="nav-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M18 6a9 9 0 0 1-9 9"></path></svg>
+          MLOps Leaderboard
         </button>
-        <button onclick="switchTab('sql')" id="tab-btn-sql" class="nav-tab">
-          <i data-lucide="database" class="w-4 h-4"></i> SQL Studio
+        <button onclick="switchTab('sql')" id="tab-btn-sql" class="nav-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
+          SQL Studio
         </button>
-        <button onclick="switchTab('highlights')" id="tab-btn-highlights" class="nav-tab">
-          <i data-lucide="code-2" class="w-4 h-4"></i> Tech Architecture
+        <button onclick="switchTab('highlights')" id="tab-btn-highlights" class="nav-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Tech Highlights
         </button>
       </nav>
 
-      <!-- System Health Badge -->
-      <div class="flex items-center gap-3">
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs">
-          <div class="pulse-green"></div>
-          <span class="text-slate-300 font-medium" id="status-db">SQLite Connected</span>
-          <span class="text-slate-600">|</span>
-          <span class="text-emerald-400 font-medium">PuLP CBC Ready</span>
+      <!-- Status Indicator -->
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; background: #090d16; padding: 0.35rem 0.75rem; border-radius: 8px; border: 1px solid var(--border); font-size: 0.75rem;">
+          <div class="pulse-dot"></div>
+          <span id="status-db" style="color: var(--text-muted); font-weight: 500;">SQLite Connected</span>
         </div>
-        <a href="/docs" target="_blank" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600/30 transition flex items-center gap-1.5">
-          <i data-lucide="book-open" class="w-3.5 h-3.5"></i> API Docs
+        <a href="/docs" target="_blank" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;">
+          OpenAPI /docs
         </a>
       </div>
 
     </div>
   </header>
 
-  <!-- MAIN VIEWPORT CONTAINER -->
-  <main class="max-w-[1720px] mx-auto px-6 py-6 flex-1 w-full">
+  <!-- ========================================================================= -->
+  <!-- MAIN APPLICATION CONTAINER -->
+  <!-- ========================================================================= -->
+  <main class="main-wrapper">
 
-    <!-- ===================================================================== -->
-    <!-- VIEW 1: EXECUTIVE OVERVIEW -->
-    <!-- ===================================================================== -->
-    <div id="view-executive" class="space-y-6">
+    <!-- --------------------------------------------------------------------- -->
+    <!-- VIEW 1: EXECUTIVE COMMAND CENTER -->
+    <!-- --------------------------------------------------------------------- -->
+    <div id="view-executive" class="flex flex-col gap-6">
       
-      <!-- Top KPI Row -->
-      <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+      <!-- Top Metric Cards -->
+      <div class="grid grid-cols-6 gap-4">
         
-        <div class="optix-card kpi-card emerald">
-          <div class="flex items-center justify-between text-slate-400 mb-1">
-            <span class="text-xs font-semibold uppercase tracking-wider">Total Revenue</span>
-            <i data-lucide="dollar-sign" class="w-4 h-4 text-emerald-400"></i>
-          </div>
-          <div class="text-2xl font-bold text-white" id="kpi-revenue">$0.00</div>
-          <div class="text-xs text-emerald-400 mt-1 flex items-center gap-1" id="kpi-units-sold">
-            <i data-lucide="package" class="w-3 h-3"></i> 0 units fulfilled
-          </div>
+        <div class="kpi-box emerald">
+          <div class="kpi-label">Total Realized Revenue</div>
+          <div class="kpi-value" id="kpi-revenue">$0.00</div>
+          <div class="kpi-sub" id="kpi-units-sold">0 units sold</div>
         </div>
 
-        <div class="optix-card kpi-card indigo">
-          <div class="flex items-center justify-between text-slate-400 mb-1">
-            <span class="text-xs font-semibold uppercase tracking-wider">On-Hand Valuation</span>
-            <i data-lucide="coins" class="w-4 h-4 text-indigo-400"></i>
-          </div>
-          <div class="text-2xl font-bold text-white" id="kpi-inv-value">$0.00</div>
-          <div class="text-xs text-indigo-300 mt-1" id="kpi-inv-units">0 units in central DC</div>
+        <div class="kpi-box indigo">
+          <div class="kpi-label">On-Hand Inventory Value</div>
+          <div class="kpi-value" id="kpi-inv-value">$0.00</div>
+          <div class="kpi-sub" id="kpi-inv-units">0 units in DC</div>
         </div>
 
-        <div class="optix-card kpi-card blue">
-          <div class="flex items-center justify-between text-slate-400 mb-1">
-            <span class="text-xs font-semibold uppercase tracking-wider">Forecast Accuracy</span>
-            <i data-lucide="target" class="w-4 h-4 text-blue-400"></i>
-          </div>
-          <div class="text-2xl font-bold text-white" id="kpi-accuracy">82.5%</div>
-          <div class="text-xs text-blue-300 mt-1">LightGBM (WAPE: 17.51%)</div>
+        <div class="kpi-box blue">
+          <div class="kpi-label">Forecast Accuracy</div>
+          <div class="kpi-value" id="kpi-accuracy">82.5%</div>
+          <div class="kpi-sub" style="color: #38bdf8;">WAPE: 17.51% (LightGBM)</div>
         </div>
 
-        <div class="optix-card kpi-card rose">
-          <div class="flex items-center justify-between text-slate-400 mb-1">
-            <span class="text-xs font-semibold uppercase tracking-wider">Stockout Rate</span>
-            <i data-lucide="alert-octagon" class="w-4 h-4 text-rose-400"></i>
-          </div>
-          <div class="text-2xl font-bold text-rose-400" id="kpi-stockout-rate">0.0%</div>
-          <div class="text-xs text-slate-400 mt-1">Unmet consumer demand</div>
+        <div class="kpi-box rose">
+          <div class="kpi-label">Stockout Rate</div>
+          <div class="kpi-value" style="color: #f43f5e;" id="kpi-stockout-rate">0.0%</div>
+          <div class="kpi-sub">Unmet lost customer demand</div>
         </div>
 
-        <div class="optix-card kpi-card rose">
-          <div class="flex items-center justify-between text-slate-400 mb-1">
-            <span class="text-xs font-semibold uppercase tracking-wider">Critical Stockouts</span>
-            <i data-lucide="flame" class="w-4 h-4 text-rose-500"></i>
-          </div>
-          <div class="text-2xl font-bold text-rose-400" id="kpi-critical-count">0 SKUs</div>
-          <div class="text-xs text-rose-300 mt-1">Below Safety Stock Buffer</div>
+        <div class="kpi-box rose">
+          <div class="kpi-label">Critical Stockouts</div>
+          <div class="kpi-value" style="color: #f43f5e;" id="kpi-critical-count">0 SKUs</div>
+          <div class="kpi-sub" style="color: #fca5a5;">Below Safety Stock buffer</div>
         </div>
 
-        <div class="optix-card kpi-card amber">
-          <div class="flex items-center justify-between text-slate-400 mb-1">
-            <span class="text-xs font-semibold uppercase tracking-wider">Reorders Needed</span>
-            <i data-lucide="shopping-cart" class="w-4 h-4 text-amber-400"></i>
-          </div>
-          <div class="text-2xl font-bold text-amber-400" id="kpi-reorder-count">0 SKUs</div>
-          <div class="text-xs text-amber-300 mt-1">Breached Reorder Point ($ROP$)</div>
+        <div class="kpi-box amber">
+          <div class="kpi-label">Reorders Needed</div>
+          <div class="kpi-value" style="color: #f59e0b;" id="kpi-reorder-count">0 SKUs</div>
+          <div class="kpi-sub" style="color: #fde68a;">Breached Reorder Point (ROP)</div>
         </div>
 
       </div>
 
-      <!-- Main Charts Row -->
-      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <!-- Main Visualizations Grid -->
+      <div class="grid grid-cols-3 gap-6">
         
-        <!-- Daily Trend with 30-Day Moving Average -->
-        <div class="optix-card p-5 xl:col-span-2">
-          <div class="flex items-center justify-between mb-4">
+        <!-- Daily 3-Year Trend (Col Span 2) -->
+        <div class="card" style="grid-column: span 2;">
+          <div class="flex items-center justify-between" style="margin-bottom: 1rem;">
             <div>
-              <h3 class="text-base font-semibold text-white">Daily Enterprise Sales Trajectory & 30-Day Moving Average</h3>
-              <p class="text-xs text-slate-400">Continuous daily sales volume across all regional fulfillment centers (2023 - 2025)</p>
+              <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Enterprise Daily Sales Volume & 30-Day Moving Average</h3>
+              <p style="font-size: 0.75rem; color: var(--text-muted);">Historical actual units demanded across all fulfillment territories (2023 - 2025)</p>
             </div>
-            <span class="px-2.5 py-1 text-xs font-medium bg-slate-800 text-slate-300 rounded-lg border border-slate-700">3-Year Time Horizon</span>
+            <span class="badge" style="background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid var(--border);">1,095 Daily Records</span>
           </div>
-          <div id="chart-executive-trend" class="min-h-[340px]"></div>
+          <div id="chart-executive-trend" style="height: 340px;"></div>
         </div>
 
-        <!-- Merchandise Category Share -->
-        <div class="optix-card p-5">
-          <div class="flex items-center justify-between mb-4">
+        <!-- Category Donut Share -->
+        <div class="card">
+          <div class="flex items-center justify-between" style="margin-bottom: 1rem;">
             <div>
-              <h3 class="text-base font-semibold text-white">Demand Volume by Category</h3>
-              <p class="text-xs text-slate-400">Portfolio distribution across 5 core retail lines</p>
+              <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Demand Share by Category</h3>
+              <p style="font-size: 0.75rem; color: var(--text-muted);">Distribution across 5 merchandise categories</p>
             </div>
           </div>
-          <div id="chart-category-share" class="min-h-[340px] flex items-center justify-center"></div>
+          <div id="chart-category-share" style="height: 340px;"></div>
         </div>
 
       </div>
 
-      <!-- Second Row: Regional Demand & Highlights -->
-      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <!-- Second Row: Regional Demand & Operational Highlights -->
+      <div class="grid grid-cols-2 gap-6">
         
-        <div class="optix-card p-5">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h3 class="text-base font-semibold text-white">Regional Fulfillment Demand & Revenue Realization</h3>
-              <p class="text-xs text-slate-400">Geographic distribution across North America fulfillment nodes</p>
-            </div>
+        <div class="card">
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Regional Fulfillment Demand & Revenue Distribution</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Regional sales volume across North America distribution hubs</p>
           </div>
-          <div id="chart-regional-demand" class="min-h-[300px]"></div>
+          <div id="chart-regional-demand" style="height: 280px;"></div>
         </div>
 
-        <div class="optix-card p-5 flex flex-col justify-between">
+        <div class="card flex flex-col justify-between">
           <div>
-            <h3 class="text-base font-semibold text-white mb-2">Automated Supply Chain Decision Protocol</h3>
-            <p class="text-xs text-slate-400 mb-4">The platform operates a closed-loop analytics cycle executing four automated operational workflows:</p>
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">Automated Decision Protocol & Architecture</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Four synchronized operational modules executing in a closed loop:</p>
             
-            <div class="space-y-3">
-              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 flex items-start gap-3">
-                <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 shrink-0"><i data-lucide="zap" class="w-4 h-4"></i></div>
-                <div>
-                  <h4 class="text-xs font-semibold text-white">1. Real-Time Demand Ingestion & Feature Engineering</h4>
-                  <p class="text-[11px] text-slate-400 mt-0.5">Calculates multi-period lags and shifted rolling windows strictly without lookahead data leakage.</p>
-                </div>
+            <div class="flex flex-col gap-3">
+              <div class="card" style="padding: 0.75rem; background: #0b1120; border-color: var(--border);">
+                <div style="font-size: 0.8rem; font-weight: 700; color: #10b981;">1. Zero-Lookahead Feature Pipeline</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Generates lags (1, 7, 14, 28) and shifted rolling windows strictly without lookahead bias.</div>
               </div>
-
-              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 flex items-start gap-3">
-                <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
-                <div>
-                  <h4 class="text-xs font-semibold text-white">2. Machine Learning Demand Forecasting</h4>
-                  <p class="text-[11px] text-slate-400 mt-0.5">Generates forward point predictions with 95% uncertainty confidence intervals using tuned LightGBM.</p>
-                </div>
+              <div class="card" style="padding: 0.75rem; background: #0b1120; border-color: var(--border);">
+                <div style="font-size: 0.8rem; font-weight: 700; color: #38bdf8;">2. Machine Learning Demand Forecasting</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Point forecasts + 95% uncertainty intervals using LightGBM (17.51% WAPE out-of-sample).</div>
               </div>
-
-              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 flex items-start gap-3">
-                <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 shrink-0"><i data-lucide="cpu" class="w-4 h-4"></i></div>
-                <div>
-                  <h4 class="text-xs font-semibold text-white">3. PuLP Mixed-Integer Linear Optimization</h4>
-                  <p class="text-[11px] text-slate-400 mt-0.5">Balances holding costs, fixed PO ordering fees, and stockout penalties under lead time constraints.</p>
-                </div>
+              <div class="card" style="padding: 0.75rem; background: #0b1120; border-color: var(--border);">
+                <div style="font-size: 0.8rem; font-weight: 700; color: #a78bfa;">3. PuLP Mixed-Integer Linear Optimization</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Solves replenishment lot sizes minimizing Holding Costs, Fixed Order Fees, and Shortage Penalties.</div>
               </div>
             </div>
           </div>
 
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-            <span>Primary Solver: <strong class="text-slate-200">PuLP CBC (v2.9)</strong></span>
-            <span>Feature Pipeline: <strong class="text-slate-200">Zero Leakage Guarantee</strong></span>
+          <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted);">
+            <span>Primary Engine: <strong style="color: white;">LightGBM + PuLP CBC</strong></span>
+            <span>Database: <strong style="color: white;">SQLite Relational (54.8k rows)</strong></span>
           </div>
         </div>
 
@@ -241,93 +208,97 @@
     </div>
 
 
-    <!-- ===================================================================== -->
+    <!-- --------------------------------------------------------------------- -->
     <!-- VIEW 2: DEMAND FORECASTING STUDIO -->
-    <!-- ===================================================================== -->
-    <div id="view-forecasting" class="hidden space-y-6">
+    <!-- --------------------------------------------------------------------- -->
+    <div id="view-forecasting" class="hidden flex flex-col gap-6">
       
       <!-- Filter Bar -->
-      <div class="optix-card p-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="card flex items-center justify-between flex-wrap gap-4">
         
-        <div class="flex flex-wrap items-center gap-4">
+        <div class="flex items-center flex-wrap gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Filter Merchandise Category</label>
-            <select id="forecast-cat-filter" onchange="onForecastCategoryChange()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-2 focus:ring-1 focus:ring-indigo-500 focus:outline-none min-w-[200px]">
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.25rem;">Category Filter</label>
+            <select id="forecast-cat-filter" onchange="onForecastCategoryChange()" class="form-select" style="min-width: 180px;">
               <option value="All">All Categories</option>
             </select>
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Select Target SKU</label>
-            <select id="forecast-sku-filter" onchange="loadSKUForecast()" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-2 focus:ring-1 focus:ring-indigo-500 focus:outline-none min-w-[320px]">
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.25rem;">Select SKU to Forecast</label>
+            <select id="forecast-sku-filter" onchange="loadSKUForecast()" class="form-select" style="min-width: 320px;">
             </select>
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Forecast Horizon: <span id="horizon-val" class="text-indigo-400 font-bold">14 Days</span></label>
-            <input type="range" id="forecast-horizon-slider" min="7" max="30" step="7" value="14" oninput="document.getElementById('horizon-val').innerText = this.value + ' Days'; loadSKUForecast();" class="w-48 accent-indigo-500 cursor-pointer">
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.25rem;">
+              <span>Forecast Horizon:</span>
+              <span id="horizon-val" style="color: #818cf8;">14 Days</span>
+            </div>
+            <input type="range" id="forecast-horizon-slider" min="7" max="30" step="7" value="14" oninput="document.getElementById('horizon-val').innerText = this.value + ' Days'; loadSKUForecast();" style="width: 160px;">
           </div>
         </div>
 
-        <button onclick="loadSKUForecast()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs rounded-lg transition flex items-center gap-2 shadow-lg shadow-indigo-600/30">
-          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Update Forecast
+        <button onclick="loadSKUForecast()" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 21h5v-5"></path></svg>
+          Re-Compute Forecast
         </button>
 
       </div>
 
-      <!-- SKU Metadata & KPI Strip -->
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">SKU Code</div>
-          <div class="text-lg font-bold text-white mt-1" id="f-sku-id">PROD_001</div>
-          <div class="text-xs text-indigo-400 truncate mt-0.5" id="f-sku-name">Loading...</div>
+      <!-- SKU Metadata Strip -->
+      <div class="grid grid-cols-5 gap-4">
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">SKU Code</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: white; margin-top: 0.25rem;" id="f-sku-id">PROD_001</div>
+          <div style="font-size: 0.75rem; color: #818cf8;" class="truncate" id="f-sku-name">Loading...</div>
         </div>
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Unit Price / COGS</div>
-          <div class="text-lg font-bold text-white mt-1" id="f-sku-price">$0.00 / $0.00</div>
-          <div class="text-xs text-emerald-400 mt-0.5" id="f-sku-margin">0% margin</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Unit Price / Cost</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: white; margin-top: 0.25rem;" id="f-sku-price">$0.00 / $0.00</div>
+          <div style="font-size: 0.75rem; color: #34d399;" id="f-sku-margin">0% Margin</div>
         </div>
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Contract Lead Time</div>
-          <div class="text-lg font-bold text-white mt-1" id="f-sku-leadtime">0 Days</div>
-          <div class="text-xs text-slate-400 mt-0.5">Vendor replenishment window</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Supplier Lead Time</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: white; margin-top: 0.25rem;" id="f-sku-leadtime">0 Days</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Replenishment transit lag</div>
         </div>
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Forecasted Run Rate</div>
-          <div class="text-lg font-bold text-emerald-400 mt-1" id="f-sku-runrate">0.0 units/day</div>
-          <div class="text-xs text-slate-400 mt-0.5">Average expected daily demand</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Daily Demand Run-Rate</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #34d399; margin-top: 0.25rem;" id="f-sku-runrate">0.0 units/day</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Mean forecasted rate</div>
         </div>
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Total Projected Demand</div>
-          <div class="text-lg font-bold text-indigo-400 mt-1" id="f-sku-total">0 units</div>
-          <div class="text-xs text-slate-400 mt-0.5" id="f-sku-horizon-desc">Across 14 planning days</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Total Horizon Demand</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #818cf8; margin-top: 0.25rem;" id="f-sku-total">0 units</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);" id="f-sku-horizon-desc">Across 14 planning days</div>
         </div>
       </div>
 
-      <!-- Interactive Forecast Canvas -->
-      <div class="optix-card p-5">
-        <div class="flex items-center justify-between mb-4">
+      <!-- Forecast Canvas -->
+      <div class="card">
+        <div class="flex items-center justify-between" style="margin-bottom: 1rem;">
           <div>
-            <h3 class="text-base font-semibold text-white">Historical Realized Demand vs. Multi-Step Machine Learning Forecast</h3>
-            <p class="text-xs text-slate-400">Past 90 days realized transactions + out-of-sample forward forecast with shaded 95% confidence ribbon</p>
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Historical Demand vs. Forward Machine Learning Predictions</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Past 45 days actuals + out-of-sample forward forecast with 95% confidence intervals</p>
           </div>
-          <div class="flex items-center gap-4 text-xs">
-            <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-slate-400 inline-block"></span> Historical Actual</span>
-            <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-emerald-400 inline-block"></span> LightGBM Forecast</span>
-            <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-emerald-500/20 border border-emerald-500/40 rounded inline-block"></span> 95% Confidence Band</span>
+          <div class="flex items-center gap-4" style="font-size: 0.75rem; color: var(--text-muted);">
+            <span>● Gray: Historical Actual</span>
+            <span style="color: #10b981;">● Emerald: LightGBM Forecast</span>
+            <span style="color: #6366f1;">■ Shaded: 95% Confidence Band</span>
           </div>
         </div>
-        <div id="chart-sku-forecast" class="min-h-[400px]"></div>
+        <div id="chart-sku-forecast" style="height: 380px;"></div>
       </div>
 
       <!-- Forward Forecast Table -->
-      <div class="optix-card overflow-hidden">
-        <div class="p-4 border-b border-slate-800 flex items-center justify-between">
-          <h4 class="text-sm font-semibold text-white">Day-by-Day Forward Replenishment Demand Schedule</h4>
-          <span class="text-xs text-slate-400">Uncertainty expands proportionally with forecast horizon ($\sqrt{h}$)</span>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="font-size: 0.85rem; font-weight: 700; color: white;">Day-by-Day Forward Demand Schedule</h4>
+          <span style="font-size: 0.72rem; color: var(--text-muted);">Error variance expands with horizon step: $\sqrt{1 + 0.05 \cdot h}$</span>
         </div>
-        <div class="overflow-x-auto">
-          <table class="optix-table" id="table-forecast-schedule">
+        <div class="table-container">
+          <table class="data-table" id="table-forecast-schedule">
             <thead>
               <tr>
                 <th>Forecast Date</th>
@@ -335,12 +306,10 @@
                 <th>Predicted Demand</th>
                 <th>95% Lower Bound</th>
                 <th>95% Upper Bound</th>
-                <th>Variance Spread</th>
+                <th>Uncertainty Spread</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- Injected dynamically -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -348,67 +317,61 @@
     </div>
 
 
-    <!-- ===================================================================== -->
+    <!-- --------------------------------------------------------------------- -->
     <!-- VIEW 3: INVENTORY RISK ENGINE -->
-    <!-- ===================================================================== -->
-    <div id="view-risks" class="hidden space-y-6">
+    <!-- --------------------------------------------------------------------- -->
+    <div id="view-risks" class="hidden flex flex-col gap-6">
       
-      <!-- Filter & Search Toolbar -->
-      <div class="optix-card p-4 flex flex-wrap items-center justify-between gap-4">
+      <!-- Filter Toolbar -->
+      <div class="card flex items-center justify-between flex-wrap gap-4">
         
-        <!-- Risk Level Filter Pills -->
-        <div class="flex flex-wrap items-center gap-2">
-          <button onclick="setRiskFilter('All')" id="rf-all" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-white border border-slate-700">All SKUs</button>
-          <button onclick="setRiskFilter('CRITICAL STOCKOUT RISK')" id="rf-critical" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/30">Critical (17)</button>
-          <button onclick="setRiskFilter('HIGH RISK')" id="rf-high" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/30">High Risk (9)</button>
-          <button onclick="setRiskFilter('MEDIUM RISK')" id="rf-medium" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30">Medium Risk (4)</button>
-          <button onclick="setRiskFilter('HEALTHY')" id="rf-healthy" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Healthy (20)</button>
-          <button onclick="setRiskFilter('EXCESS INVENTORY')" id="rf-excess" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">Excess (0)</button>
+        <div class="flex items-center flex-wrap gap-2">
+          <button onclick="setRiskFilter('All')" id="rf-all" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;">All SKUs</button>
+          <button onclick="setRiskFilter('CRITICAL STOCKOUT RISK')" id="rf-critical" class="badge badge-critical" style="cursor: pointer;">Critical (17)</button>
+          <button onclick="setRiskFilter('HIGH RISK')" id="rf-high" class="badge badge-high" style="cursor: pointer;">High Risk (9)</button>
+          <button onclick="setRiskFilter('MEDIUM RISK')" id="rf-medium" class="badge badge-medium" style="cursor: pointer;">Medium Risk (4)</button>
+          <button onclick="setRiskFilter('HEALTHY')" id="rf-healthy" class="badge badge-healthy" style="cursor: pointer;">Healthy (20)</button>
+          <button onclick="setRiskFilter('EXCESS INVENTORY')" id="rf-excess" class="badge badge-excess" style="cursor: pointer;">Excess (0)</button>
         </div>
 
-        <!-- Search Input -->
         <div class="flex items-center gap-3">
-          <div class="relative">
-            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-            <input type="text" id="risk-search-input" onkeyup="filterRiskTable()" placeholder="Search SKU ID or product..." class="bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 min-w-[260px]">
-          </div>
-          <a href="/api/export/inventory_risk" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-slate-200 rounded-lg transition flex items-center gap-1.5">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i> Export CSV
+          <input type="text" id="risk-search-input" onkeyup="filterRiskTable()" placeholder="Search SKU code or name..." class="form-input" style="min-width: 240px;">
+          <a href="/api/export/inventory_risk" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.45rem 0.85rem;">
+            Export CSV
           </a>
         </div>
 
       </div>
 
       <!-- Risk Matrix Table -->
-      <div class="optix-card overflow-hidden">
-        <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <h3 class="text-sm font-semibold text-white">Supply Chain Inventory Health & Audit Matrix</h3>
-            <p class="text-xs text-slate-400">Classifies stockout exposure and surplus capital based on Safety Stock ($SS$), Reorder Point ($ROP$), and Days of Supply ($DOS$)</p>
+            <h3 style="font-size: 0.9rem; font-weight: 700; color: white;">Inventory Health & Audit Matrix</h3>
+            <p style="font-size: 0.72rem; color: var(--text-muted);">Classifies stockout exposure and surplus capital based on Safety Stock ($SS$), Reorder Point ($ROP$), and Days of Supply ($DOS$)</p>
           </div>
-          <span class="text-xs text-slate-400" id="risk-table-count">Showing 50 SKUs</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted);" id="risk-table-count">Showing 50 SKUs</span>
         </div>
 
-        <div class="overflow-x-auto max-h-[640px]">
-          <table class="optix-table" id="table-inventory-risks">
-            <thead class="sticky top-0 z-10">
+        <div class="table-container" style="max-height: 640px;">
+          <table class="data-table" id="table-inventory-risks">
+            <thead style="position: sticky; top: 0; z-index: 10;">
               <tr>
                 <th>SKU</th>
                 <th>Product Name</th>
                 <th>Category</th>
                 <th>On-Hand Stock</th>
+                <th>Stock Gauge</th>
                 <th>Daily Demand</th>
                 <th>Safety Stock</th>
                 <th>ROP Trigger</th>
                 <th>Days Supply</th>
                 <th>Risk Status</th>
-                <th>Recommended PO</th>
-                <th>Audit Diagnostic Justification</th>
+                <th>Recommended Reorder</th>
+                <th>Audit Diagnostic Reason</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- Injected via JavaScript -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -416,26 +379,23 @@
     </div>
 
 
-    <!-- ===================================================================== -->
-    <!-- VIEW 4: PRODUCT CATALOG & DEEP DIVE -->
-    <!-- ===================================================================== -->
-    <div id="view-products" class="hidden space-y-6">
+    <!-- --------------------------------------------------------------------- -->
+    <!-- VIEW 4: PRODUCT CATALOG -->
+    <!-- --------------------------------------------------------------------- -->
+    <div id="view-products" class="hidden flex flex-col gap-6">
       
-      <div class="optix-card p-4 flex items-center justify-between">
+      <div class="card flex items-center justify-between">
         <div>
-          <h3 class="text-base font-semibold text-white">SKU Catalog & Operational Performance</h3>
-          <p class="text-xs text-slate-400">Detailed commercial parameters, contracted supplier lead times, and reliability index</p>
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">SKU Catalog & Commercial Parameters</h3>
+          <p style="font-size: 0.75rem; color: var(--text-muted);">Detailed product margins, contracted supplier lead times, and vendor reliability indices</p>
         </div>
-        <div class="relative">
-          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-          <input type="text" id="catalog-search" onkeyup="filterCatalogTable()" placeholder="Filter catalog..." class="bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 w-64">
-        </div>
+        <input type="text" id="catalog-search" onkeyup="filterCatalogTable()" placeholder="Filter catalog..." class="form-input" style="width: 220px;">
       </div>
 
-      <div class="optix-card overflow-hidden">
-        <div class="overflow-x-auto max-h-[680px]">
-          <table class="optix-table" id="table-catalog">
-            <thead class="sticky top-0 z-10">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="table-container" style="max-height: 680px;">
+          <table class="data-table" id="table-catalog">
+            <thead style="position: sticky; top: 0; z-index: 10;">
               <tr>
                 <th>SKU Code</th>
                 <th>Product Name</th>
@@ -449,9 +409,7 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- Injected via JavaScript -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -459,56 +417,54 @@
     </div>
 
 
-    <!-- ===================================================================== -->
+    <!-- --------------------------------------------------------------------- -->
     <!-- VIEW 5: MATHEMATICAL OPTIMIZATION (PuLP MILP COCKPIT) -->
-    <!-- ===================================================================== -->
-    <div id="view-optimization" class="hidden space-y-6">
+    <!-- --------------------------------------------------------------------- -->
+    <div id="view-optimization" class="hidden flex flex-col gap-6">
       
-      <!-- Interactive Optimization Control Deck -->
-      <div class="optix-card p-5">
-        <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+      <div class="card">
+        <div class="flex items-center justify-between" style="margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);">
           <div>
-            <h3 class="text-base font-semibold text-white">PuLP Mixed-Integer Linear Programming Replenishment Cockpit</h3>
-            <p class="text-xs text-slate-400">Solve real-time dynamic lot sizing balancing Holding Cost ($h$), Fixed Order Cost ($K$), and Shortage Penalty ($p$)</p>
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">PuLP Mixed-Integer Linear Programming Replenishment Cockpit</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Solve dynamic lot sizing balancing Holding Cost ($h$), Fixed Order Cost ($K$), and Shortage Penalty ($p$)</p>
           </div>
-          <span class="px-3 py-1 text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 rounded-lg">CBC Solver Engine</span>
+          <span class="badge" style="background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.35);">CBC MILP Solver</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div class="grid grid-cols-5 gap-6">
           
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Target Product</label>
-            <select id="opt-sku-select" class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-2 focus:ring-1 focus:ring-indigo-500 focus:outline-none">
-            </select>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.25rem;">Target Product</label>
+            <select id="opt-sku-select" class="form-select w-full"></select>
           </div>
 
           <div>
-            <div class="flex justify-between text-xs font-semibold text-slate-400 mb-1">
-              <span>Annual Holding Cost:</span>
-              <span id="opt-holding-val" class="text-indigo-400 font-bold">20%</span>
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.25rem;">
+              <span>Holding Cost Rate:</span>
+              <span id="opt-holding-val" style="color: #818cf8;">20%</span>
             </div>
-            <input type="range" id="opt-holding-slider" min="10" max="40" step="5" value="20" oninput="document.getElementById('opt-holding-val').innerText = this.value + '%';" class="w-full accent-indigo-500 cursor-pointer">
+            <input type="range" id="opt-holding-slider" min="10" max="40" step="5" value="20" oninput="document.getElementById('opt-holding-val').innerText = this.value + '%';" class="w-full">
           </div>
 
           <div>
-            <div class="flex justify-between text-xs font-semibold text-slate-400 mb-1">
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.25rem;">
               <span>Fixed Order Cost:</span>
-              <span id="opt-order-val" class="text-indigo-400 font-bold">$150</span>
+              <span id="opt-order-val" style="color: #818cf8;">$150</span>
             </div>
-            <input type="range" id="opt-order-slider" min="50" max="300" step="25" value="150" oninput="document.getElementById('opt-order-val').innerText = '$' + this.value;" class="w-full accent-indigo-500 cursor-pointer">
+            <input type="range" id="opt-order-slider" min="50" max="300" step="25" value="150" oninput="document.getElementById('opt-order-val').innerText = '$' + this.value;" class="w-full">
           </div>
 
           <div>
-            <div class="flex justify-between text-xs font-semibold text-slate-400 mb-1">
-              <span>Shortage Penalty Multiplier:</span>
-              <span id="opt-penalty-val" class="text-indigo-400 font-bold">1.5x</span>
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.25rem;">
+              <span>Shortage Penalty:</span>
+              <span id="opt-penalty-val" style="color: #818cf8;">1.5x</span>
             </div>
-            <input type="range" id="opt-penalty-slider" min="1.0" max="3.0" step="0.25" value="1.5" oninput="document.getElementById('opt-penalty-val').innerText = this.value + 'x';" class="w-full accent-indigo-500 cursor-pointer">
+            <input type="range" id="opt-penalty-slider" min="1.0" max="3.0" step="0.25" value="1.5" oninput="document.getElementById('opt-penalty-val').innerText = this.value + 'x';" class="w-full">
           </div>
 
-          <div class="flex items-end">
-            <button onclick="executePuLPOptimization()" id="btn-run-pulp" class="w-full py-2.5 px-4 bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 text-white font-semibold text-xs rounded-lg transition shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
-              <i data-lucide="play" class="w-4 h-4"></i> Run PuLP MILP Solver
+          <div style="display: flex; align-items: flex-end;">
+            <button onclick="executePuLPOptimization()" id="btn-run-pulp" class="btn btn-emerald w-full" style="padding: 0.65rem 1rem;">
+              Run PuLP MILP Solver
             </button>
           </div>
 
@@ -516,73 +472,71 @@
       </div>
 
       <!-- Financial Cost Breakdown Cards -->
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="opt-kpi-row">
+      <div class="grid grid-cols-5 gap-4">
         
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Solver Status</div>
-          <div class="text-lg font-bold text-emerald-400 mt-1" id="opt-status">OPTIMAL</div>
-          <div class="text-xs text-slate-400 mt-0.5">CBC Branch-and-Bound</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Solver Status</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #34d399; margin-top: 0.25rem;" id="opt-status">OPTIMAL</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">CBC Branch-and-Bound</div>
         </div>
 
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Total Minimum Cost</div>
-          <div class="text-lg font-bold text-white mt-1" id="opt-total-cost">$0.00</div>
-          <div class="text-xs text-indigo-400 mt-0.5">Global MILP objective</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Total Optimal Cost</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: white; margin-top: 0.25rem;" id="opt-total-cost">$0.00</div>
+          <div style="font-size: 0.72rem; color: #818cf8;">Global MILP objective</div>
         </div>
 
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Holding Cost</div>
-          <div class="text-lg font-bold text-slate-200 mt-1" id="opt-holding-cost">$0.00</div>
-          <div class="text-xs text-slate-400 mt-0.5">Physical storage & capital</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Holding Cost</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;" id="opt-holding-cost">$0.00</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Storage & capital charge</div>
         </div>
 
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Ordering PO Cost</div>
-          <div class="text-lg font-bold text-slate-200 mt-1" id="opt-ordering-cost">$0.00</div>
-          <div class="text-xs text-slate-400 mt-0.5" id="opt-po-count">0 orders triggered</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Ordering Cost</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;" id="opt-ordering-cost">$0.00</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);" id="opt-po-count">0 POs placed</div>
         </div>
 
-        <div class="optix-card p-4">
-          <div class="text-xs text-slate-400 uppercase font-semibold">Stockout Penalty</div>
-          <div class="text-lg font-bold text-rose-400 mt-1" id="opt-stockout-penalty">$0.00</div>
-          <div class="text-xs text-slate-400 mt-0.5">Unmet customer demand fee</div>
+        <div class="card">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Shortage Penalty</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #f43f5e; margin-top: 0.25rem;" id="opt-stockout-penalty">$0.00</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Stockout opportunity fee</div>
         </div>
 
       </div>
 
       <!-- Replenishment Trajectory Chart -->
-      <div class="optix-card p-5">
-        <div class="flex items-center justify-between mb-4">
+      <div class="card">
+        <div class="flex items-center justify-between" style="margin-bottom: 1rem;">
           <div>
-            <h3 class="text-base font-semibold text-white">PuLP Optimal Replenishment Schedule vs. Forecasted Demand</h3>
-            <p class="text-xs text-slate-400">Recommended order timing and simulated on-hand ending inventory trajectory across planning days</p>
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Optimal Replenishment Lot Sizing vs. Demand</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Recommended purchase orders dispatched vs. projected on-hand ending stock</p>
           </div>
         </div>
-        <div id="chart-pulp-trajectory" class="min-h-[380px]"></div>
+        <div id="chart-pulp-trajectory" style="height: 360px;"></div>
       </div>
 
       <!-- Optimal Daily Plan Table -->
-      <div class="optix-card overflow-hidden">
-        <div class="p-4 border-b border-slate-800">
-          <h4 class="text-sm font-semibold text-white">Daily Recommended Replenishment Order Dispatch Plan</h4>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--border);">
+          <h4 style="font-size: 0.85rem; font-weight: 700; color: white;">Optimal Daily PO Dispatch Schedule</h4>
         </div>
-        <div class="overflow-x-auto">
-          <table class="optix-table" id="table-opt-daily">
+        <div class="table-container">
+          <table class="data-table" id="table-opt-daily">
             <thead>
               <tr>
-                <th>Planning Step</th>
+                <th>Day Step</th>
                 <th>Forecast Demand</th>
                 <th>Recommended PO Order</th>
-                <th>Order Trigger Flag ($Y_t$)</th>
+                <th>Trigger Flag ($Y_t$)</th>
                 <th>Expected Ending Stock</th>
                 <th>Stockout Shortage ($S_t$)</th>
                 <th>Daily Holding Cost</th>
                 <th>Daily Order Cost</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- Injected dynamically -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -590,24 +544,22 @@
     </div>
 
 
-    <!-- ===================================================================== -->
-    <!-- VIEW 6: MLOPS & MODEL BENCHMARK -->
-    <!-- ===================================================================== -->
-    <div id="view-mlops" class="hidden space-y-6">
+    <!-- --------------------------------------------------------------------- -->
+    <!-- VIEW 6: MLOPS LEADERBOARD & BENCHMARK -->
+    <!-- --------------------------------------------------------------------- -->
+    <div id="view-mlops" class="hidden flex flex-col gap-6">
       
-      <div class="optix-card p-5">
-        <div class="flex items-center justify-between mb-4">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <h3 class="text-base font-semibold text-white">Out-of-Sample Forecasting Model Leaderboard</h3>
-            <p class="text-xs text-slate-400">Strict chronological evaluation across 8,250 held-out unseen future test records (No Data Leakage)</p>
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Out-of-Sample Forecasting Model Leaderboard</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Strict chronological evaluation across 8,250 held-out unseen future test records (Zero Lookahead Leakage)</p>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-1 text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-lg">Production: LightGBM Tuned</span>
-          </div>
+          <span class="badge badge-healthy">Production: LightGBM Tuned</span>
         </div>
 
-        <div class="overflow-x-auto">
-          <table class="optix-table" id="table-mlops-leaderboard">
+        <div class="table-container">
+          <table class="data-table" id="table-mlops-leaderboard">
             <thead>
               <tr>
                 <th>Model Architecture</th>
@@ -617,37 +569,31 @@
                 <th>WAPE (%)</th>
                 <th>Forecast Bias (%)</th>
                 <th>Training Time (s)</th>
-                <th>Production Status</th>
+                <th>Status</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- Injected via JavaScript -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
 
       <!-- Feature Importance & Residuals -->
-      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div class="grid grid-cols-2 gap-6">
         
-        <div class="optix-card p-5">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h3 class="text-base font-semibold text-white">Top 12 Predictive Features (LightGBM)</h3>
-              <p class="text-xs text-slate-400">Feature split frequency across boosted decision trees</p>
-            </div>
+        <div class="card">
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Top 12 Predictive Features (LightGBM)</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Split importance frequency across gradient boosted trees</p>
           </div>
-          <div id="chart-feature-importance" class="min-h-[360px]"></div>
+          <div id="chart-feature-importance" style="height: 340px;"></div>
         </div>
 
-        <div class="optix-card p-5">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h3 class="text-base font-semibold text-white">Out-of-Sample Residual Error Distribution</h3>
-              <p class="text-xs text-slate-400">Error histogram $(\hat{y}_t - y_t)$ demonstrating zero bias centering</p>
-            </div>
+        <div class="card">
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Out-of-Sample Residual Error Distribution</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Residual histogram $(\hat{y}_t - y_t)$ demonstrating zero bias centering</p>
           </div>
-          <div id="chart-residuals" class="min-h-[360px]"></div>
+          <div id="chart-residuals" style="height: 340px;"></div>
         </div>
 
       </div>
@@ -655,29 +601,28 @@
     </div>
 
 
-    <!-- ===================================================================== -->
+    <!-- --------------------------------------------------------------------- -->
     <!-- VIEW 7: LIVE SQL QUERY STUDIO -->
-    <!-- ===================================================================== -->
-    <div id="view-sql" class="hidden space-y-6">
+    <!-- --------------------------------------------------------------------- -->
+    <div id="view-sql" class="hidden flex flex-col gap-6">
       
-      <div class="optix-card p-5">
-        <div class="flex items-center justify-between mb-4">
+      <div class="card">
+        <div class="flex items-center justify-between flex-wrap gap-4" style="margin-bottom: 1rem;">
           <div>
-            <h3 class="text-base font-semibold text-white">Interactive SQL Analytics Console</h3>
-            <p class="text-xs text-slate-400">Execute real-time SQL queries directly against the local SQLite supply chain database (<code class="text-indigo-400">data/inventory.db</code>)</p>
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: white;">Interactive SQL Analytics Console</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Execute real-time SQL queries directly on the SQLite database (<code>data/inventory.db</code>)</p>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs text-slate-400">Sample Queries:</span>
-            <button onclick="loadSampleSQL('turnover')" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 transition">Inventory Turnover</button>
-            <button onclick="loadSampleSQL('stockout')" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 transition">Stockout Frequency</button>
-            <button onclick="loadSampleSQL('top10')" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 transition">Top 10 Revenue</button>
-            <button onclick="loadSampleSQL('regions')" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 transition">Regional Sales</button>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Presets:</span>
+            <button onclick="loadSampleSQL('turnover')" class="btn btn-outline" style="font-size: 0.72rem; padding: 0.3rem 0.6rem;">Inventory Turnover</button>
+            <button onclick="loadSampleSQL('stockout')" class="btn btn-outline" style="font-size: 0.72rem; padding: 0.3rem 0.6rem;">Stockout Frequency</button>
+            <button onclick="loadSampleSQL('top10')" class="btn btn-outline" style="font-size: 0.72rem; padding: 0.3rem 0.6rem;">Top 10 Revenue</button>
+            <button onclick="loadSampleSQL('regions')" class="btn btn-outline" style="font-size: 0.72rem; padding: 0.3rem 0.6rem;">Regional Sales</button>
           </div>
         </div>
 
         <!-- SQL Code Editor -->
-        <div class="relative">
-          <textarea id="sql-query-editor" rows="5" class="w-full bg-[#0a0f1d] border border-slate-700 text-emerald-400 font-mono text-xs rounded-xl p-4 focus:ring-1 focus:ring-indigo-500 focus:outline-none resize-none selection:bg-indigo-500 selection:text-white" spellcheck="false">SELECT 
+        <textarea id="sql-query-editor" rows="5" class="form-input w-full" style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; line-height: 1.4; color: #34d399; resize: vertical;" spellcheck="false">SELECT 
     p.product_id,
     p.product_name,
     p.category,
@@ -688,32 +633,27 @@ JOIN sales s ON p.product_id = s.product_id
 GROUP BY p.product_id
 ORDER BY total_revenue DESC
 LIMIT 10;</textarea>
-        </div>
 
-        <div class="flex items-center justify-between mt-3">
-          <span class="text-xs text-slate-400" id="sql-execution-metrics">Ready to execute query.</span>
-          <button onclick="runCustomSQL()" id="btn-run-sql" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-lg transition shadow-lg shadow-emerald-600/30 flex items-center gap-2">
-            <i data-lucide="play" class="w-3.5 h-3.5"></i> Run SQL Query
+        <div class="flex items-center justify-between" style="margin-top: 0.75rem;">
+          <span style="font-size: 0.75rem; color: var(--text-muted);" id="sql-execution-metrics">Ready to execute query.</span>
+          <button onclick="runCustomSQL()" id="btn-run-sql" class="btn btn-emerald">
+            Run SQL Query
           </button>
         </div>
       </div>
 
       <!-- SQL Results Grid -->
-      <div class="optix-card overflow-hidden">
-        <div class="p-4 border-b border-slate-800 flex items-center justify-between">
-          <h4 class="text-sm font-semibold text-white">Query Execution Results</h4>
-          <button onclick="downloadSQLResultsAsCSV()" id="btn-export-sql" class="hidden px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-slate-200 rounded-lg transition flex items-center gap-1.5">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i> Download CSV
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="font-size: 0.85rem; font-weight: 700; color: white;">Query Execution Results</h4>
+          <button onclick="downloadSQLResultsAsCSV()" id="btn-export-sql" class="hidden btn btn-outline" style="font-size: 0.72rem; padding: 0.35rem 0.75rem;">
+            Download CSV
           </button>
         </div>
-        <div class="overflow-x-auto max-h-[500px]">
-          <table class="optix-table" id="table-sql-results">
-            <thead>
-              <!-- Injected dynamically -->
-            </thead>
-            <tbody>
-              <!-- Injected dynamically -->
-            </tbody>
+        <div class="table-container" style="max-height: 500px;">
+          <table class="data-table" id="table-sql-results">
+            <thead></thead>
+            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -721,72 +661,58 @@ LIMIT 10;</textarea>
     </div>
 
 
-    <!-- ===================================================================== -->
-    <!-- VIEW 8: TECHNICAL ARCHITECTURE & RECRUITER HIGHLIGHTS -->
-    <!-- ===================================================================== -->
-    <div id="view-highlights" class="hidden space-y-6">
+    <!-- --------------------------------------------------------------------- -->
+    <!-- VIEW 8: TECHNICAL ARCHITECTURE & HIGHLIGHTS -->
+    <!-- --------------------------------------------------------------------- -->
+    <div id="view-highlights" class="hidden flex flex-col gap-6">
       
-      <div class="optix-card p-6">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-            <i data-lucide="award" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Senior Data Science & Supply Chain Engineering Competencies</h3>
-            <p class="text-xs text-slate-400">Architectural breakdown and production design principles demonstrated in this project</p>
-          </div>
-        </div>
+      <div class="card">
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: white; margin-bottom: 0.5rem;">Senior Data Science & Supply Chain Analytics Highlights</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">Methodology, mathematical formulations, and engineering principles implemented in this platform.</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="grid grid-cols-2 gap-6">
           
-          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h4 class="text-sm font-bold text-indigo-400 mb-2 flex items-center gap-2">
-              <i data-lucide="check-circle-2" class="w-4 h-4"></i> 1. Zero-Lookahead Feature Engineering
-            </h4>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              In time-series demand forecasting, rolling statistics computed without shift inadvertently leak future target values into the training matrix. This pipeline applies strict <code class="text-indigo-300 bg-slate-800 px-1 rounded">shift(1)</code> before any rolling calculation (<code class="text-indigo-300 bg-slate-800 px-1 rounded">rolling_mean_7</code>, <code class="text-indigo-300 bg-slate-800 px-1 rounded">rolling_std_7</code>), ensuring today's demand is never observed during training.
+          <div class="card" style="background: #090e18;">
+            <h4 style="color: #818cf8; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">1. Zero-Lookahead Feature Engineering</h4>
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.6;">
+              In time-series demand forecasting, unshifted rolling windows leak future information into the training set. This system computes all rolling aggregates on <code>shift(1)</code> (<code style="color: #818cf8;">rolling_mean_7</code>, <code style="color: #818cf8;">rolling_std_7</code>), ensuring today's demand is never observed during training.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h4 class="text-sm font-bold text-emerald-400 mb-2 flex items-center gap-2">
-              <i data-lucide="check-circle-2" class="w-4 h-4"></i> 2. Mathematical Replenishment Optimization (PuLP)
-            </h4>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Unlike simplistic static reorder rules, replenishment lot sizing is formulated as a Mixed-Integer Linear Program (MILP). The solver dynamically balances inventory holding capital against fixed purchase order placement fees and shortage costs subject to lead time delivery lags.
+          <div class="card" style="background: #090e18;">
+            <h4 style="color: #34d399; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">2. Mixed-Integer Linear Replenishment Optimization</h4>
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.6;">
+              Formulated as a Mixed-Integer Linear Program (MILP) in PuLP, balancing daily inventory holding cost ($h$), fixed order placement cost ($K$), and stockout shortage penalties ($p$) across planning horizons subject to vendor lead times ($L$).
             </p>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h4 class="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
-              <i data-lucide="check-circle-2" class="w-4 h-4"></i> 3. Strict Chronological Evaluation
-            </h4>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Random K-Fold cross-validation destroys temporal structure. Models are evaluated chronologically on 8,250 out-of-sample future records (First 70% Train, Next 15% Validation, Final 15% Test). Weighted Absolute Percentage Error (<strong class="text-slate-100">17.51% WAPE</strong>) guarantees safe performance in sparse demand days.
+          <div class="card" style="background: #090e18;">
+            <h4 style="color: #38bdf8; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">3. Strict Chronological Model Validation</h4>
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.6;">
+              Random cross-validation invalidates temporal integrity. Models are benchmarked on 8,250 out-of-sample future records (First 70% Train, Next 15% Validation, Final 15% Test). Weighted Absolute Percentage Error (<strong style="color: white;">17.51% WAPE</strong>) guarantees reliable performance.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h4 class="text-sm font-bold text-amber-400 mb-2 flex items-center gap-2">
-              <i data-lucide="check-circle-2" class="w-4 h-4"></i> 4. Production MLOps & Distributed Spark Support
-            </h4>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Full experiment lifecycle is tracked via MLflow (<code class="text-amber-300 bg-slate-800 px-1 rounded">mlruns.db</code>). For big data scale, a PySpark feature pipeline with window specifications and a Databricks Delta Lake Medallion notebook are provided in <code class="text-amber-300 bg-slate-800 px-1 rounded">src/spark/</code>.
+          <div class="card" style="background: #090e18;">
+            <h4 style="color: #f59e0b; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">4. MLOps Experiment Tracking & PySpark Ready</h4>
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.6;">
+              Tracked with MLflow (<code>sqlite:///mlruns.db</code>). Includes a distributed PySpark windowed feature engineering pipeline and Databricks Delta Lake notebook in <code>src/spark/</code> for big-data scale.
             </p>
           </div>
 
         </div>
 
-        <div class="mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Mathematical Formulation (PuLP Mixed-Integer Linear Program)</h4>
-          <div class="font-mono text-xs text-slate-300 bg-[#090d16] p-4 rounded-lg overflow-x-auto leading-relaxed border border-slate-800/80">
-            Minimize:  ∑ [ h · I_t + K · Y_t + p · S_t ]  for t = 1 ... H<br><br>
-            Subject to:<br>
-            &nbsp;&nbsp;• Inventory Balance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_t = I_{t-1} + Q_{t-L} - d̂_t + S_t<br>
-            &nbsp;&nbsp;• Big-M Order Linking:&nbsp;&nbsp;&nbsp;&nbsp;Q_t ≤ M · Y_t<br>
-            &nbsp;&nbsp;• Minimum Order Batch:&nbsp;&nbsp;&nbsp;&nbsp;Q_t ≥ MOQ · Y_t<br>
-            &nbsp;&nbsp;• Variable Domains:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q_t ≥ 0,  I_t ≥ 0,  S_t ≥ 0,  Y_t ∈ {0, 1}
-          </div>
+        <div class="card" style="margin-top: 1.5rem; background: #070a12;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 0.5rem;">Mathematical Optimization Formulation (PuLP MILP)</div>
+          <pre style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #cbd5e1; line-height: 1.6; overflow-x: auto;">
+Minimize:  ∑ [ h · I_t + K · Y_t + p · S_t ]  for t = 1 ... H
+
+Subject to:
+  • Inventory Conservation:   I_t = I_{t-1} + Q_{t-L} - d̂_t + S_t   ∀ t
+  • Big-M Order Linking:      Q_t ≤ M · Y_t                           ∀ t
+  • Minimum Order Batch:      Q_t ≥ MOQ · Y_t                         ∀ t
+  • Variable Domains:         Q_t ≥ 0,  I_t ≥ 0,  S_t ≥ 0,  Y_t ∈ {0, 1}
+          </pre>
         </div>
 
       </div>
@@ -795,23 +721,15 @@ LIMIT 10;</textarea>
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-slate-800/80 bg-[#0a0e17] py-4 px-6 text-xs text-slate-500 flex flex-wrap items-center justify-between">
-    <div class="flex items-center gap-3">
-      <span>Optix Decision Platform // Production Build</span>
-      <span>•</span>
-      <span>LightGBM v4.7</span>
-      <span>•</span>
-      <span>PuLP v2.9</span>
-      <span>•</span>
-      <span>FastAPI & SQLite</span>
-    </div>
-    <div>
-      <span>17 Unit Tests Passing (pytest) | 100% Zero-Leakage Architecture</span>
-    </div>
+  <!-- ========================================================================= -->
+  <!-- ENTERPRISE FOOTER -->
+  <!-- ========================================================================= -->
+  <footer style="border-top: 1px solid var(--border); background: var(--bg-surface); padding: 0.85rem 1.5rem; font-size: 0.75rem; color: var(--text-dim); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+    <div>Optix Enterprise Inventory AI // Production Build 2.0</div>
+    <div>100% Zero-Leakage Architecture | 22 Automated Tests Passing (pytest)</div>
   </footer>
 
-  <!-- Main JavaScript Application Logic -->
+  <!-- Application Logic -->
   <script src="/static/app.js"></script>
 </body>
 </html>

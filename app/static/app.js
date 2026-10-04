@@ -1,30 +1,38 @@
 /**
  * Optix Enterprise Inventory AI - Core Application Logic
- * Manages reactive UI state, REST API calls, ApexCharts rendering, and live PuLP optimization.
+ * Self-contained, robust asynchronous JavaScript client.
+ * Manages reactive UI state, REST API calls, charting engines, and live PuLP optimization.
  */
 
-// Global state cache
-let state = {
+// Global State
+const state = {
   activeTab: 'executive',
   products: [],
   risks: [],
   currentRiskFilter: 'All',
-  executiveCharts: {},
-  forecastChart: null,
-  pulpChart: null,
-  featureChart: null,
-  residualChart: null,
+  charts: {
+    executiveTrend: null,
+    categoryShare: null,
+    regionalDemand: null,
+    skuForecast: null,
+    pulpTrajectory: null,
+    featureImportance: null,
+    residuals: null
+  },
   lastSQLResults: null
 };
 
-// Initialize on DOM ready
+// Application Bootstrap
 document.addEventListener('DOMContentLoaded', async () => {
-  lucide.createIcons();
-  await loadSystemStatus();
-  await loadExecutiveDashboard();
-  await loadProductCatalog();
-  await loadRiskReport();
-  await loadMLOpsLeaderboard();
+  try {
+    await loadSystemStatus();
+    await loadExecutiveDashboard();
+    await loadProductCatalog();
+    await loadRiskReport();
+    await loadMLOpsLeaderboard();
+  } catch (err) {
+    console.error('Bootstrap error:', err);
+  }
 });
 
 // -----------------------------------------------------------------------------
@@ -45,12 +53,11 @@ function switchTab(tabId) {
   if (targetBtn) targetBtn.classList.add('active');
 
   state.activeTab = tabId;
-  lucide.createIcons();
 
-  // Lazy trigger renders for charts in hidden tabs
-  if (tabId === 'forecasting' && !state.forecastChart) {
+  // Lazy render charts when their tab becomes visible
+  if (tabId === 'forecasting' && !state.charts.skuForecast) {
     loadSKUForecast();
-  } else if (tabId === 'optimization' && !state.pulpChart) {
+  } else if (tabId === 'optimization' && !state.charts.pulpTrajectory) {
     executePuLPOptimization();
   }
 }
@@ -67,7 +74,7 @@ async function loadSystemStatus() {
       dbPill.innerText = `SQLite Connected (${data.database.total_records.toLocaleString()} rows)`;
     }
   } catch (err) {
-    console.error('Failed to load status:', err);
+    console.warn('Status error:', err);
   }
 }
 
@@ -76,21 +83,20 @@ async function loadSystemStatus() {
 // -----------------------------------------------------------------------------
 async function loadExecutiveDashboard() {
   try {
-    // 1. Fetch KPIs
+    // 1. Fetch Executive KPIs
     const kpiRes = await fetch('/api/kpis');
     const kpi = await kpiRes.json();
 
     document.getElementById('kpi-revenue').innerText = `$${(kpi.total_revenue / 1e6).toFixed(2)}M`;
-    document.getElementById('kpi-units-sold').innerHTML = `<i data-lucide="package" class="w-3 h-3"></i> ${kpi.total_units_sold.toLocaleString()} units fulfilled`;
+    document.getElementById('kpi-units-sold').innerText = `${kpi.total_units_sold.toLocaleString()} units fulfilled`;
     document.getElementById('kpi-inv-value').innerText = `$${(kpi.total_inventory_value / 1e3).toFixed(1)}K`;
-    document.getElementById('kpi-inv-units').innerText = `${kpi.current_inventory_units.toLocaleString()} units on-hand`;
+    document.getElementById('kpi-inv-units').innerText = `${kpi.current_inventory_units.toLocaleString()} units in DC`;
     document.getElementById('kpi-stockout-rate').innerText = `${kpi.stockout_rate_pct.toFixed(2)}%`;
     document.getElementById('kpi-accuracy').innerText = `${kpi.forecast_accuracy_pct.toFixed(1)}%`;
     document.getElementById('kpi-critical-count').innerText = `${kpi.critical_stockouts_count} SKUs`;
     document.getElementById('kpi-reorder-count').innerText = `${kpi.reorders_needed_count} SKUs`;
-    lucide.createIcons();
 
-    // 2. Fetch Executive Charts Data
+    // 2. Fetch Executive Charts
     const chartRes = await fetch('/api/charts/executive');
     const chartsData = await chartRes.json();
 
@@ -104,7 +110,8 @@ async function loadExecutiveDashboard() {
 }
 
 function renderExecutiveTrendChart(trendData) {
-  // Subsample dates for smoother UI rendering (every 4th day)
+  if (typeof ApexCharts === 'undefined') return;
+
   const step = 4;
   const sampledDates = trendData.dates.filter((_, i) => i % step === 0);
   const sampledSales = trendData.sales_quantity.filter((_, i) => i % step === 0);
@@ -115,13 +122,7 @@ function renderExecutiveTrendChart(trendData) {
       { name: 'Daily Units Demanded', type: 'area', data: sampledSales },
       { name: '30-Day Moving Average', type: 'line', data: sampledMA }
     ],
-    chart: {
-      height: 340,
-      type: 'line',
-      background: 'transparent',
-      toolbar: { show: false },
-      zoom: { enabled: false }
-    },
+    chart: { height: 340, type: 'line', background: 'transparent', toolbar: { show: false } },
     colors: ['#3b82f6', '#10b981'],
     stroke: { width: [1.2, 3], curve: 'smooth' },
     fill: {
@@ -135,23 +136,23 @@ function renderExecutiveTrendChart(trendData) {
       axisBorder: { show: false },
       axisTicks: { show: false }
     },
-    yaxis: {
-      labels: { style: { colors: '#64748b', fontSize: '11px' } }
-    },
+    yaxis: { labels: { style: { colors: '#64748b', fontSize: '11px' } } },
     grid: { borderColor: '#1e293b', strokeDashArray: 3 },
     legend: { labels: { colors: '#94a3b8' }, position: 'top', horizontalAlign: 'right' },
     tooltip: { theme: 'dark' }
   };
 
-  const chartEl = document.querySelector("#chart-executive-trend");
-  if (chartEl) {
-    chartEl.innerHTML = '';
-    const chart = new ApexCharts(chartEl, options);
-    chart.render();
+  const el = document.querySelector("#chart-executive-trend");
+  if (el) {
+    el.innerHTML = '';
+    state.charts.executiveTrend = new ApexCharts(el, options);
+    state.charts.executiveTrend.render();
   }
 }
 
 function renderCategoryShareChart(catData) {
+  if (typeof ApexCharts === 'undefined') return;
+
   const labels = catData.map(c => c.category);
   const series = catData.map(c => c.units_sold);
 
@@ -182,39 +183,37 @@ function renderCategoryShareChart(catData) {
     tooltip: { theme: 'dark' }
   };
 
-  const chartEl = document.querySelector("#chart-category-share");
-  if (chartEl) {
-    chartEl.innerHTML = '';
-    const chart = new ApexCharts(chartEl, options);
-    chart.render();
+  const el = document.querySelector("#chart-category-share");
+  if (el) {
+    el.innerHTML = '';
+    state.charts.categoryShare = new ApexCharts(el, options);
+    state.charts.categoryShare.render();
   }
 }
 
 function renderRegionalDemandChart(regData) {
+  if (typeof ApexCharts === 'undefined') return;
+
   const options = {
     series: [{ name: 'Units Sold', data: regData.map(r => r.units_sold) }],
-    chart: { type: 'bar', height: 280, background: 'transparent', toolbar: { show: false } },
+    chart: { type: 'bar', height: 260, background: 'transparent', toolbar: { show: false } },
     colors: ['#6366f1'],
-    plotOptions: {
-      bar: { borderRadius: 6, horizontal: true, distributed: false, barHeight: '55%' }
-    },
+    plotOptions: { bar: { borderRadius: 4, horizontal: true, barHeight: '55%' } },
     dataLabels: { enabled: false },
     xaxis: {
       categories: regData.map(r => r.region_name),
       labels: { style: { colors: '#64748b', fontSize: '11px' } }
     },
-    yaxis: {
-      labels: { style: { colors: '#94a3b8', fontSize: '11px' } }
-    },
+    yaxis: { labels: { style: { colors: '#94a3b8', fontSize: '11px' } } },
     grid: { borderColor: '#1e293b', strokeDashArray: 3 },
     tooltip: { theme: 'dark' }
   };
 
-  const chartEl = document.querySelector("#chart-regional-demand");
-  if (chartEl) {
-    chartEl.innerHTML = '';
-    const chart = new ApexCharts(chartEl, options);
-    chart.render();
+  const el = document.querySelector("#chart-regional-demand");
+  if (el) {
+    el.innerHTML = '';
+    state.charts.regionalDemand = new ApexCharts(el, options);
+    state.charts.regionalDemand.render();
   }
 }
 
@@ -226,21 +225,21 @@ async function loadProductCatalog() {
     const res = await fetch('/api/products');
     state.products = await res.json();
 
-    // Populate Category Filter
+    // Populate category dropdown
     const categories = ['All', ...new Set(state.products.map(p => p.category))];
     const catSelect = document.getElementById('forecast-cat-filter');
     if (catSelect) {
       catSelect.innerHTML = categories.map(c => `<option value="${c}">${c === 'All' ? 'All Categories' : c}</option>`).join('');
     }
 
-    // Populate Product Dropdowns
+    // Populate SKU dropdowns
     populateProductDropdowns('All');
 
-    // Populate Catalog Table in SKUs Tab
+    // Populate Catalog Table in Tab 4
     renderCatalogTable(state.products);
 
   } catch (err) {
-    console.error('Catalog load error:', err);
+    console.error('Catalog error:', err);
   }
 }
 
@@ -271,21 +270,21 @@ function renderCatalogTable(products) {
 
   tbody.innerHTML = products.map(p => `
     <tr>
-      <td class="font-mono text-xs font-bold text-indigo-400">${p.product_id}</td>
-      <td class="font-semibold text-white">${p.product_name}</td>
-      <td><span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">${p.category}</span></td>
-      <td class="font-mono text-slate-300">$${p.unit_cost.toFixed(2)}</td>
-      <td class="font-mono text-slate-200 font-semibold">$${p.unit_price.toFixed(2)}</td>
-      <td class="text-emerald-400 font-semibold">$${p.unit_margin.toFixed(2)}</td>
+      <td style="font-family: monospace; font-weight: 700; color: #818cf8;">${p.product_id}</td>
+      <td style="font-weight: 700; color: white;">${p.product_name}</td>
+      <td><span class="badge" style="background: rgba(255,255,255,0.06); color: var(--text-muted);">${p.category}</span></td>
+      <td style="font-family: monospace; color: var(--text-muted);">$${p.unit_cost.toFixed(2)}</td>
+      <td style="font-family: monospace; font-weight: 700; color: white;">$${p.unit_price.toFixed(2)}</td>
+      <td style="font-weight: 700; color: #34d399;">$${p.unit_margin.toFixed(2)}</td>
       <td>${p.lead_time_days} days</td>
-      <td class="text-slate-300">${p.supplier_name || 'Tier-1 Partner'}</td>
+      <td style="color: var(--text-muted);">${p.supplier_name || 'Tier-1 Supplier'}</td>
       <td>
-        <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+        <span class="badge badge-healthy">
           ${((p.reliability_score || 0.95) * 100).toFixed(0)}%
         </span>
       </td>
       <td>
-        <button onclick="inspectSKU('${p.product_id}')" class="px-2.5 py-1 text-xs bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 rounded hover:bg-indigo-600/30 transition">
+        <button onclick="inspectSKU('${p.product_id}')" class="btn btn-outline" style="font-size: 0.72rem; padding: 0.3rem 0.6rem;">
           Forecast
         </button>
       </td>
@@ -305,9 +304,7 @@ function filterCatalogTable() {
 
 function inspectSKU(pid) {
   const skuSelect = document.getElementById('forecast-sku-filter');
-  if (skuSelect) {
-    skuSelect.value = pid;
-  }
+  if (skuSelect) skuSelect.value = pid;
   switchTab('forecasting');
   loadSKUForecast();
 }
@@ -326,35 +323,31 @@ async function loadSKUForecast() {
     const res = await fetch(`/api/forecast?product_id=${pid}&horizon_days=${horizon}`);
     const data = await res.json();
 
-    // Set KPI header metrics
     document.getElementById('f-sku-id').innerText = data.product_id;
     document.getElementById('f-sku-name').innerText = data.product_name;
     document.getElementById('f-sku-price').innerText = `$${data.unit_price.toFixed(2)} / $${data.unit_cost.toFixed(2)}`;
     const margin = (((data.unit_price - data.unit_cost) / data.unit_price) * 100).toFixed(1);
-    document.getElementById('f-sku-margin').innerText = `${margin}% gross margin`;
+    document.getElementById('f-sku-margin').innerText = `${margin}% Gross Margin`;
     document.getElementById('f-sku-leadtime').innerText = `${data.lead_time_days} Days`;
     document.getElementById('f-sku-runrate').innerText = `${data.mean_daily_demand.toFixed(1)} units/day`;
     document.getElementById('f-sku-total').innerText = `${Math.round(data.total_forecasted_units)} units`;
     document.getElementById('f-sku-horizon-desc').innerText = `Across ${data.horizon_days} planning days`;
 
-    // Render Canvas Forecast Chart
     renderForecastChart(data);
-
-    // Populate Daily Table
     renderForecastScheduleTable(data.forecast);
 
   } catch (err) {
-    console.error('Forecast load error:', err);
+    console.error('Forecast error:', err);
   }
 }
 
 function renderForecastChart(data) {
-  // Historical points (last 45 days for clear visual focus)
+  if (typeof ApexCharts === 'undefined') return;
+
   const histSlice = data.historical.slice(-45);
   const histDates = histSlice.map(h => h.date);
   const histSales = histSlice.map(h => h.actual_sales);
 
-  // Forecast points
   const fDates = data.forecast.map(f => f.date);
   const fPreds = data.forecast.map(f => f.predicted_demand);
   const fLower = data.forecast.map(f => f.lower_bound);
@@ -363,7 +356,6 @@ function renderForecastChart(data) {
   const allDates = [...histDates, ...fDates];
   const histSeriesData = [...histSales, ...Array(fDates.length).fill(null)];
   
-  // Bridge the gap between historical and forecast
   const lastHistVal = histSales[histSales.length - 1];
   const fSeriesData = [...Array(histDates.length - 1).fill(null), lastHistVal, ...fPreds];
   const fLowerData = [...Array(histDates.length - 1).fill(null), lastHistVal, ...fLower];
@@ -390,19 +382,17 @@ function renderForecastChart(data) {
       axisBorder: { show: false },
       axisTicks: { show: false }
     },
-    yaxis: {
-      labels: { style: { colors: '#64748b', fontSize: '11px' } }
-    },
+    yaxis: { labels: { style: { colors: '#64748b', fontSize: '11px' } } },
     grid: { borderColor: '#1e293b', strokeDashArray: 3 },
     legend: { show: false },
     tooltip: { theme: 'dark' }
   };
 
-  const chartEl = document.querySelector("#chart-sku-forecast");
-  if (chartEl) {
-    chartEl.innerHTML = '';
-    state.forecastChart = new ApexCharts(chartEl, options);
-    state.forecastChart.render();
+  const el = document.querySelector("#chart-sku-forecast");
+  if (el) {
+    el.innerHTML = '';
+    state.charts.skuForecast = new ApexCharts(el, options);
+    state.charts.skuForecast.render();
   }
 }
 
@@ -414,12 +404,12 @@ function renderForecastScheduleTable(forecast) {
     const spread = (f.upper_bound - f.lower_bound).toFixed(1);
     return `
       <tr>
-        <td class="font-mono text-xs text-slate-300">${f.date}</td>
-        <td class="font-semibold text-indigo-400">Day +${f.forecast_step}</td>
-        <td class="font-bold text-white">${f.predicted_demand.toFixed(1)} units</td>
-        <td class="text-slate-400">${f.lower_bound.toFixed(1)}</td>
-        <td class="text-slate-400">${f.upper_bound.toFixed(1)}</td>
-        <td><span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-400">±${(spread / 2).toFixed(1)}</span></td>
+        <td style="font-family: monospace; color: var(--text-muted);">${f.date}</td>
+        <td style="font-weight: 700; color: #818cf8;">Day +${f.forecast_step}</td>
+        <td style="font-weight: 800; color: white;">${f.predicted_demand.toFixed(1)} units</td>
+        <td style="color: var(--text-muted);">${f.lower_bound.toFixed(1)}</td>
+        <td style="color: var(--text-muted);">${f.upper_bound.toFixed(1)}</td>
+        <td><span class="badge" style="background: rgba(255,255,255,0.06); color: var(--text-muted);">±${(spread / 2).toFixed(1)}</span></td>
       </tr>
     `;
   }).join('');
@@ -434,7 +424,7 @@ async function loadRiskReport() {
     state.risks = await res.json();
     renderRiskTable(state.risks);
   } catch (err) {
-    console.error('Risk report load error:', err);
+    console.error('Risk error:', err);
   }
 }
 
@@ -475,23 +465,35 @@ function renderRiskTable(risks) {
     'EXCESS INVENTORY': 'badge-excess'
   };
 
-  tbody.innerHTML = risks.map(r => `
-    <tr>
-      <td class="font-mono text-xs font-bold text-indigo-400">${r.product_id}</td>
-      <td class="font-semibold text-white whitespace-nowrap">${r.product_name}</td>
-      <td><span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">${r.category}</span></td>
-      <td class="font-mono font-bold ${r.current_inventory <= r.safety_stock ? 'text-rose-400' : 'text-slate-200'}">${r.current_inventory}</td>
-      <td class="text-slate-300">${r.mean_daily_demand}</td>
-      <td class="text-slate-400">${r.safety_stock}</td>
-      <td class="text-slate-400">${r.reorder_point}</td>
-      <td class="font-semibold ${r.days_of_supply < r.lead_time_days ? 'text-rose-400' : 'text-emerald-400'}">${r.days_of_supply.toFixed(1)}d</td>
-      <td><span class="${badgeMap[r.risk_level] || 'badge-healthy'}">${r.risk_level}</span></td>
-      <td class="font-bold ${r.recommended_reorder_qty > 0 ? 'text-amber-400' : 'text-slate-500'}">
-        ${r.recommended_reorder_qty > 0 ? r.recommended_reorder_qty + ' units' : '—'}
-      </td>
-      <td class="text-xs text-slate-400 max-w-[340px] truncate" title="${r.diagnostic_reason}">${r.diagnostic_reason}</td>
-    </tr>
-  `).join('');
+  tbody.innerHTML = risks.map(r => {
+    // Calculate stock meter percentage
+    const maxReference = Math.max(r.reorder_point * 1.5, r.current_inventory, 100);
+    const fillPct = Math.min(100, Math.max(5, (r.current_inventory / maxReference) * 100));
+    const fillColor = r.current_inventory < r.safety_stock ? '#f43f5e' : (r.current_inventory <= r.reorder_point ? '#f59e0b' : '#10b981');
+
+    return `
+      <tr>
+        <td style="font-family: monospace; font-weight: 700; color: #818cf8;">${r.product_id}</td>
+        <td style="font-weight: 700; color: white; white-space: nowrap;">${r.product_name}</td>
+        <td><span class="badge" style="background: rgba(255,255,255,0.06); color: var(--text-muted);">${r.category}</span></td>
+        <td style="font-family: monospace; font-weight: 800; color: ${r.current_inventory <= r.safety_stock ? '#f43f5e' : 'white'};">${r.current_inventory}</td>
+        <td style="min-width: 90px;">
+          <div class="stock-meter-track" title="On-Hand: ${r.current_inventory} / Target: ${r.reorder_point}">
+            <div class="stock-meter-fill" style="width: ${fillPct}%; background: ${fillColor};"></div>
+          </div>
+        </td>
+        <td style="color: var(--text-muted);">${r.mean_daily_demand}</td>
+        <td style="color: var(--text-muted);">${r.safety_stock}</td>
+        <td style="color: var(--text-muted);">${r.reorder_point}</td>
+        <td style="font-weight: 700; color: ${r.days_of_supply < r.lead_time_days ? '#f43f5e' : '#34d399'};">${r.days_of_supply.toFixed(1)}d</td>
+        <td><span class="${badgeMap[r.risk_level] || 'badge-healthy'}">${r.risk_level}</span></td>
+        <td style="font-weight: 700; color: ${r.recommended_reorder_qty > 0 ? '#f59e0b' : 'var(--text-dim)'};">
+          ${r.recommended_reorder_qty > 0 ? r.recommended_reorder_qty + ' units' : '—'}
+        </td>
+        <td style="font-size: 0.72rem; color: var(--text-muted); max-width: 320px;" class="truncate" title="${r.diagnostic_reason}">${r.diagnostic_reason}</td>
+      </tr>
+    `;
+  }).join('');
 }
 
 // -----------------------------------------------------------------------------
@@ -502,7 +504,7 @@ async function executePuLPOptimization() {
   if (!skuSelect || !skuSelect.value) return;
 
   const btn = document.getElementById('btn-run-pulp');
-  if (btn) btn.innerHTML = '<span class="inline-block animate-spin mr-1">⏳</span> Solving MILP...';
+  if (btn) btn.innerText = 'Solving Mixed-Integer Program...';
 
   const payload = {
     product_id: skuSelect.value,
@@ -520,29 +522,26 @@ async function executePuLPOptimization() {
     });
     const result = await res.json();
 
-    // Update KPI cards
     document.getElementById('opt-status').innerText = result.status;
     document.getElementById('opt-total-cost').innerText = `$${result.total_optimal_cost.toLocaleString()}`;
     document.getElementById('opt-holding-cost').innerText = `$${result.total_holding_cost.toLocaleString()}`;
     document.getElementById('opt-ordering-cost').innerText = `$${result.total_ordering_cost.toLocaleString()}`;
-    document.getElementById('opt-po-count').innerText = `${result.total_orders_placed} POs dispatched`;
+    document.getElementById('opt-po-count').innerText = `${result.total_orders_placed} POs Dispatched`;
     document.getElementById('opt-stockout-penalty').innerText = `$${result.total_stockout_penalty.toLocaleString()}`;
 
-    // Render Trajectory Chart
     renderPuLPTrajectoryChart(result.daily_plan);
-
-    // Populate Daily Schedule Table
     renderPuLPDailyTable(result.daily_plan);
 
   } catch (err) {
     console.error('Optimization error:', err);
   } finally {
-    if (btn) btn.innerHTML = '<i data-lucide="play" class="w-4 h-4"></i> Run PuLP MILP Solver';
-    lucide.createIcons();
+    if (btn) btn.innerText = 'Run PuLP MILP Solver';
   }
 }
 
 function renderPuLPTrajectoryChart(dailyPlan) {
+  if (typeof ApexCharts === 'undefined') return;
+
   const steps = dailyPlan.map(d => `Day +${d.day_step}`);
   const orders = dailyPlan.map(d => d.recommended_order);
   const demand = dailyPlan.map(d => d.forecast_demand);
@@ -562,19 +561,17 @@ function renderPuLPTrajectoryChart(dailyPlan) {
       categories: steps,
       labels: { style: { colors: '#64748b', fontSize: '11px' } }
     },
-    yaxis: {
-      labels: { style: { colors: '#64748b', fontSize: '11px' } }
-    },
+    yaxis: { labels: { style: { colors: '#64748b', fontSize: '11px' } } },
     grid: { borderColor: '#1e293b', strokeDashArray: 3 },
     legend: { labels: { colors: '#94a3b8' }, position: 'top', horizontalAlign: 'right' },
     tooltip: { theme: 'dark' }
   };
 
-  const chartEl = document.querySelector("#chart-pulp-trajectory");
-  if (chartEl) {
-    chartEl.innerHTML = '';
-    state.pulpChart = new ApexCharts(chartEl, options);
-    state.pulpChart.render();
+  const el = document.querySelector("#chart-pulp-trajectory");
+  if (el) {
+    el.innerHTML = '';
+    state.charts.pulpTrajectory = new ApexCharts(el, options);
+    state.charts.pulpTrajectory.render();
   }
 }
 
@@ -584,20 +581,20 @@ function renderPuLPDailyTable(dailyPlan) {
 
   tbody.innerHTML = dailyPlan.map(d => `
     <tr>
-      <td class="font-bold text-indigo-400">Step ${d.day_step}</td>
-      <td class="text-slate-300">${d.forecast_demand} units</td>
-      <td class="font-bold ${d.recommended_order > 0 ? 'text-emerald-400' : 'text-slate-500'}">
+      <td style="font-weight: 700; color: #818cf8;">Step ${d.day_step}</td>
+      <td style="color: var(--text-muted);">${d.forecast_demand} units</td>
+      <td style="font-weight: 800; color: ${d.recommended_order > 0 ? '#10b981' : 'var(--text-dim)'};">
         ${d.recommended_order > 0 ? d.recommended_order + ' units' : '—'}
       </td>
       <td>
-        <span class="px-2 py-0.5 rounded text-xs font-semibold ${d.order_triggered === 1 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-500'}">
+        <span class="badge ${d.order_triggered === 1 ? 'badge-healthy' : ''}" style="${d.order_triggered === 0 ? 'background: rgba(255,255,255,0.06); color: var(--text-dim);' : ''}">
           ${d.order_triggered === 1 ? 'TRIGGERED (Y=1)' : 'IDLE (Y=0)'}
         </span>
       </td>
-      <td class="font-mono text-slate-200">${d.expected_inventory}</td>
-      <td class="text-rose-400">${d.stockout_units > 0 ? d.stockout_units : '0'}</td>
-      <td class="text-slate-400 font-mono">$${d.holding_cost.toFixed(2)}</td>
-      <td class="text-slate-400 font-mono">$${d.ordering_cost.toFixed(2)}</td>
+      <td style="font-family: monospace; font-weight: 700; color: white;">${d.expected_inventory}</td>
+      <td style="color: ${d.stockout_units > 0 ? '#f43f5e' : 'var(--text-dim)'};">${d.stockout_units > 0 ? d.stockout_units : '0'}</td>
+      <td style="font-family: monospace; color: var(--text-muted);">$${d.holding_cost.toFixed(2)}</td>
+      <td style="font-family: monospace; color: var(--text-muted);">$${d.ordering_cost.toFixed(2)}</td>
     </tr>
   `).join('');
 }
@@ -610,20 +607,19 @@ async function loadMLOpsLeaderboard() {
     const res = await fetch('/api/models/leaderboard');
     const data = await res.json();
 
-    // 1. Leaderboard Table
     const tbody = document.querySelector('#table-mlops-leaderboard tbody');
     if (tbody && data.leaderboard) {
       tbody.innerHTML = data.leaderboard.map((m, idx) => `
-        <tr class="${idx === 0 ? 'bg-emerald-500/5' : ''}">
-          <td class="font-bold ${idx === 0 ? 'text-emerald-400' : 'text-white'}">${m.Model}</td>
-          <td class="font-mono text-slate-200">${m.MAE.toFixed(3)}</td>
-          <td class="font-mono text-slate-200">${m.RMSE.toFixed(3)}</td>
-          <td class="font-mono text-slate-400">${m.MAPE > 9999 ? '>10,000%' : m.MAPE.toFixed(1) + '%'}</td>
-          <td class="font-mono font-bold ${idx === 0 ? 'text-emerald-400' : 'text-slate-200'}">${m.WAPE.toFixed(2)}%</td>
-          <td class="font-mono ${m.Bias_Pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${m.Bias_Pct > 0 ? '+' : ''}${m.Bias_Pct.toFixed(2)}%</td>
-          <td class="text-slate-400">${m.Train_Time_Sec.toFixed(3)}s</td>
+        <tr style="${idx === 0 ? 'background: rgba(16, 185, 129, 0.05);' : ''}">
+          <td style="font-weight: 700; color: ${idx === 0 ? '#34d399' : 'white'};">${m.Model}</td>
+          <td style="font-family: monospace; color: white;">${m.MAE.toFixed(3)}</td>
+          <td style="font-family: monospace; color: white;">${m.RMSE.toFixed(3)}</td>
+          <td style="font-family: monospace; color: var(--text-muted);">${m.MAPE > 9999 ? '>10,000%' : m.MAPE.toFixed(1) + '%'}</td>
+          <td style="font-family: monospace; font-weight: 800; color: ${idx === 0 ? '#34d399' : 'white'};">${m.WAPE.toFixed(2)}%</td>
+          <td style="font-family: monospace; color: ${m.Bias_Pct >= 0 ? '#34d399' : '#f43f5e'};">${m.Bias_Pct > 0 ? '+' : ''}${m.Bias_Pct.toFixed(2)}%</td>
+          <td style="color: var(--text-muted);">${m.Train_Time_Sec.toFixed(3)}s</td>
           <td>
-            <span class="px-2 py-0.5 rounded-full text-xs font-semibold ${idx === 0 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-500'}">
+            <span class="badge ${idx === 0 ? 'badge-healthy' : ''}" style="${idx !== 0 ? 'background: rgba(255,255,255,0.06); color: var(--text-dim);' : ''}">
               ${idx === 0 ? '★ Production Champion' : 'Benchmark Candidate'}
             </span>
           </td>
@@ -631,22 +627,22 @@ async function loadMLOpsLeaderboard() {
       `).join('');
     }
 
-    // 2. Feature Importance Chart
     if (data.top_features && data.top_features.length > 0) {
       renderFeatureImportanceChart(data.top_features);
     }
 
-    // 3. Residual Error Histogram
     if (data.sample_residuals && data.sample_residuals.length > 0) {
       renderResidualsChart(data.sample_residuals);
     }
 
   } catch (err) {
-    console.error('MLOps leaderboard load error:', err);
+    console.error('MLOps error:', err);
   }
 }
 
 function renderFeatureImportanceChart(features) {
+  if (typeof ApexCharts === 'undefined') return;
+
   const options = {
     series: [{ name: 'Split Importance', data: features.map(f => f.importance) }],
     chart: { type: 'bar', height: 340, background: 'transparent', toolbar: { show: false } },
@@ -657,23 +653,22 @@ function renderFeatureImportanceChart(features) {
       categories: features.map(f => f.feature),
       labels: { style: { colors: '#64748b', fontSize: '11px' } }
     },
-    yaxis: {
-      labels: { style: { colors: '#94a3b8', fontSize: '11px' } }
-    },
+    yaxis: { labels: { style: { colors: '#94a3b8', fontSize: '11px' } } },
     grid: { borderColor: '#1e293b', strokeDashArray: 3 },
     tooltip: { theme: 'dark' }
   };
 
-  const chartEl = document.querySelector("#chart-feature-importance");
-  if (chartEl) {
-    chartEl.innerHTML = '';
-    state.featureChart = new ApexCharts(chartEl, options);
-    state.featureChart.render();
+  const el = document.querySelector("#chart-feature-importance");
+  if (el) {
+    el.innerHTML = '';
+    state.charts.featureImportance = new ApexCharts(el, options);
+    state.charts.featureImportance.render();
   }
 }
 
 function renderResidualsChart(residuals) {
-  // Compute histogram bins manually for ApexCharts
+  if (typeof ApexCharts === 'undefined') return;
+
   const minVal = -20;
   const maxVal = 20;
   const binWidth = 2;
@@ -701,18 +696,16 @@ function renderResidualsChart(residuals) {
       categories: categories,
       labels: { style: { colors: '#64748b', fontSize: '10px' } }
     },
-    yaxis: {
-      labels: { style: { colors: '#64748b', fontSize: '11px' } }
-    },
+    yaxis: { labels: { style: { colors: '#64748b', fontSize: '11px' } } },
     grid: { borderColor: '#1e293b', strokeDashArray: 3 },
     tooltip: { theme: 'dark' }
   };
 
-  const chartEl = document.querySelector("#chart-residuals");
-  if (chartEl) {
-    chartEl.innerHTML = '';
-    state.residualChart = new ApexCharts(chartEl, options);
-    state.residualChart.render();
+  const el = document.querySelector("#chart-residuals");
+  if (el) {
+    el.innerHTML = '';
+    state.charts.residuals = new ApexCharts(el, options);
+    state.charts.residuals.render();
   }
 }
 
@@ -791,20 +784,18 @@ async function runCustomSQL() {
     const elapsed = (performance.now() - t0).toFixed(1);
 
     if (res.status !== 200) {
-      metricsEl.innerHTML = `<span class="text-rose-400 font-semibold">${result.detail || 'Execution error'}</span>`;
+      metricsEl.innerHTML = `<span style="color: #f43f5e; font-weight: 700;">${result.detail || 'Execution error'}</span>`;
       return;
     }
 
-    metricsEl.innerHTML = `<span class="text-emerald-400 font-semibold">✓ Query executed in ${elapsed} ms. Returned ${result.total_rows_returned} rows.</span>`;
+    metricsEl.innerHTML = `<span style="color: #34d399; font-weight: 700;">✓ Query executed in ${elapsed} ms. Returned ${result.total_rows_returned} rows.</span>`;
     state.lastSQLResults = result;
 
     if (exportBtn) exportBtn.classList.remove('hidden');
-
-    // Render Table
     renderSQLResultsTable(result);
 
   } catch (err) {
-    metricsEl.innerHTML = `<span class="text-rose-400 font-semibold">Error: ${err.message}</span>`;
+    metricsEl.innerHTML = `<span style="color: #f43f5e; font-weight: 700;">Error: ${err.message}</span>`;
   }
 }
 
@@ -815,7 +806,7 @@ function renderSQLResultsTable(result) {
   thead.innerHTML = `<tr>${result.columns.map(c => `<th>${c}</th>`).join('')}</tr>`;
   tbody.innerHTML = result.rows.map(row => `
     <tr>
-      ${result.columns.map(c => `<td class="font-mono text-xs">${row[c] !== null ? row[c] : '<span class="text-slate-600">NULL</span>'}</td>`).join('')}
+      ${result.columns.map(c => `<td style="font-family: monospace; font-size: 0.75rem;">${row[c] !== null ? row[c] : '<span style="color: #475569;">NULL</span>'}</td>`).join('')}
     </tr>
   `).join('');
 }
