@@ -1,0 +1,47 @@
+[
+  {
+    "Model": "5. LightGBM (Tuned)",
+    "MAE": 5.0,
+    "RMSE": 7.42,
+    "MAPE": 1609518.49,
+    "WAPE": 17.51,
+    "Bias_Pct": -0.26,
+    "Train_Time_Sec": 3.654
+  },
+  {
+    "Model": "4. Random Forest",
+    "MAE": 5.337,
+    "RMSE": 8.053,
+    "MAPE": 1962582.45,
+    "WAPE": 18.69,
+    "Bias_Pct": 1.67,
+    "Train_Time_Sec": 8.164
+  },
+  {
+    "Model": "3. Ridge Regression",
+    "MAE": 6.226,
+    "RMSE": 9.604,
+    "MAPE": 2756289.4,
+    "WAPE": 21.81,
+    "Bias_Pct": -0.57,
+    "Train_Time_Sec": 0.11
+  },
+  {
+    "Model": "2. Moving Average (7D)",
+    "MAE": 8.005,
+    "RMSE": 12.18,
+    "MAPE": 3446958.48,
+    "WAPE": 28.04,
+    "Bias_Pct": 0.77,
+    "Train_Time_Sec": 0.0
+  },
+  {
+    "Model": "1. Naive (Lag 7)",
+    "MAE": 8.601,
+    "RMSE": 14.886,
+    "MAPE": 3870331.85,
+    "WAPE": 30.12,
+    "Bias_Pct": 1.5,
+    "Train_Time_Sec": 0.0
+  }
+]

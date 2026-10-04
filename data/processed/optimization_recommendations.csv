@@ -1,0 +1,51 @@
+product_id,product_name,category,current_inventory,safety_stock,optimal_reorder_qty,planned_orders_count,total_holding_cost,total_ordering_cost,total_stockout_cost,total_cost,optimization_status
+PROD_007,USB-C Dual Docking Station,Electronics,10,65,125,1,8.24,150.0,24281.35,24439.6,Optimal
+PROD_004,Mechanical RGB Gaming Keyboard,Electronics,132,111,264,1,19.8,150.0,26238.09,26407.89,Optimal
+PROD_047,Surge Protector Power Strip (12-Outlet),Office & Industrial,59,64,128,1,2.86,150.0,3378.21,3531.07,Optimal
+PROD_023,High-Speed Blender 1200W,Home & Kitchen,130,106,187,1,10.07,150.0,25410.75,25570.82,Optimal
+PROD_022,XL Digital Air Fryer 6Qt,Home & Kitchen,73,54,85,1,7.33,150.0,7044.84,7202.17,Optimal
+PROD_049,Dual Monitor Adjustable Arm Mount,Office & Industrial,261,141,205,1,14.94,150.0,13511.04,13675.98,Optimal
+PROD_024,10-Piece Non-Stick Cookware Set,Home & Kitchen,146,110,36,1,13.31,150.0,32670.54,32833.85,Optimal
+PROD_036,Ionic Ceramic Hair Dryer,Health & Personal Care,257,103,250,1,21.71,150.0,1206.36,1378.07,Optimal
+PROD_037,Mineral SPF 50 Broad Sunscreen,Health & Personal Care,126,46,131,1,3.03,150.0,0.0,153.03,Optimal
+PROD_038,High-Density Eco Yoga Mat,Health & Personal Care,98,36,88,1,4.53,150.0,0.0,154.53,Optimal
+PROD_019,Fleece Zip-Up Hoodie,Apparel & Fashion,101,45,0,0,3.26,0.0,4794.66,4797.92,Optimal
+PROD_032,Deep Tissue Muscle Massage Gun,Health & Personal Care,138,51,80,1,12.97,150.0,614.79,777.76,Optimal
+PROD_021,Barista Espresso Coffee Machine,Home & Kitchen,284,105,111,1,87.87,150.0,21061.56,21299.43,Optimal
+PROD_002,Noise-Canceling Wireless Headphones,Electronics,164,50,58,1,40.9,150.0,5777.67,5968.57,Optimal
+PROD_046,Under-Desk 3-Drawer Steel Cabinet,Office & Industrial,203,97,0,0,23.74,0.0,20369.79,20393.53,Optimal
+PROD_029,Countertop Convection Microwave,Home & Kitchen,433,139,122,1,91.19,150.0,11078.31,11319.5,Optimal
+PROD_042,Electric Dual-Motor Standing Desk,Office & Industrial,178,62,0,0,75.28,0.0,41068.17,41143.45,Optimal
+PROD_026,HEPA Filter Air Purifier,Home & Kitchen,149,39,51,1,21.08,150.0,0.0,171.08,Optimal
+PROD_020,Cushioned Athletic Socks (6-Pack),Apparel & Fashion,294,104,95,1,4.35,150.0,74.67,229.02,Optimal
+PROD_003,Ultra-HD 27-inch Curved Monitor,Electronics,309,92,44,1,131.89,150.0,13961.81,14243.69,Optimal
+PROD_015,Organic Cotton Everyday T-Shirt,Apparel & Fashion,194,48,0,0,4.1,0.0,108.36,112.46,Optimal
+PROD_043,Cross-Cut Heavy Duty Paper Shredder,Office & Industrial,234,52,0,0,37.75,0.0,0.0,37.75,Optimal
+PROD_016,Merino Wool Crewneck Sweater,Apparel & Fashion,215,99,0,0,24.85,0.0,0.0,24.85,Optimal
+PROD_013,Classic Straight-Fit Denim Jeans,Apparel & Fashion,462,114,0,0,43.82,0.0,0.0,43.82,Optimal
+PROD_011,Men's All-Weather Parka,Apparel & Fashion,330,69,0,0,82.2,0.0,0.0,82.2,Optimal
+PROD_018,Waterproof Trail Hiking Boots,Apparel & Fashion,271,56,0,0,63.7,0.0,0.0,63.7,Optimal
+PROD_006,4K Streaming Media Player,Electronics,244,73,0,1,13.59,150.0,0.0,163.59,Optimal
+PROD_033,Anti-Aging Vitamin C Serum 30ml,Health & Personal Care,148,34,0,1,3.74,150.0,0.0,153.74,Optimal
+PROD_034,Daily Multivitamin Tablets (180ct),Health & Personal Care,173,41,0,1,3.59,150.0,0.0,153.59,Optimal
+PROD_035,Digital Arm Blood Pressure Monitor,Health & Personal Care,327,75,0,1,19.16,150.0,0.0,169.16,Optimal
+PROD_039,Comprehensive First Aid Kit,Health & Personal Care,214,48,0,1,7.24,150.0,0.0,157.24,Optimal
+PROD_028,Dimmable LED Architect Desk Lamp,Home & Kitchen,225,47,0,1,11.62,150.0,0.0,161.62,Optimal
+PROD_009,Smart Home Security Camera,Electronics,151,38,0,1,19.64,150.0,0.0,169.64,Optimal
+PROD_031,Sonic Electric Toothbrush,Health & Personal Care,623,104,0,1,53.89,150.0,0.0,203.89,Optimal
+PROD_050,Adjustable Footrest with Massage Rollers,Office & Industrial,572,130,0,1,30.03,150.0,0.0,180.03,Optimal
+PROD_040,Hydrating Facial Moisturizer Cream,Health & Personal Care,561,89,0,0,21.67,0.0,0.0,21.67,Optimal
+PROD_048,Heavy-Duty Packaging Tape (6-Pack),Office & Industrial,493,96,0,0,14.38,0.0,0.0,14.38,Optimal
+PROD_044,Thermal Shipping Label Printer,Office & Industrial,529,114,0,0,111.37,0.0,0.0,111.37,Optimal
+PROD_045,Magnetic Dry Erase Whiteboard 48x36,Office & Industrial,603,124,0,0,81.32,0.0,0.0,81.32,Optimal
+PROD_005,Smart Fitness Tracker Band,Electronics,404,64,0,0,61.01,0.0,0.0,61.01,Optimal
+PROD_025,Laser-Navigating Robot Vacuum,Home & Kitchen,591,97,0,0,426.24,0.0,0.0,426.24,Optimal
+PROD_041,Ergonomic Mesh Executive Chair,Office & Industrial,622,108,0,0,314.96,0.0,0.0,314.96,Optimal
+PROD_027,Bamboo Luxury Bed Sheets (Queen),Home & Kitchen,839,116,0,0,113.6,0.0,0.0,113.6,Optimal
+PROD_008,External 2TB SSD Drive,Electronics,683,95,0,0,223.59,0.0,0.0,223.59,Optimal
+PROD_017,Seamless High-Rise Yoga Leggings,Apparel & Fashion,529,80,0,0,43.2,0.0,0.0,43.2,Optimal
+PROD_010,Bluetooth Portable Speaker,Electronics,456,60,0,0,69.86,0.0,0.0,69.86,Optimal
+PROD_030,German Steel Kitchen Knife Set,Home & Kitchen,715,108,0,0,168.02,0.0,0.0,168.02,Optimal
+PROD_014,Breathable Running Shoes,Apparel & Fashion,1128,179,0,0,222.63,0.0,0.0,222.63,Optimal
+PROD_001,ProBook 15.6-inch Laptop,Electronics,704,91,0,0,2689.25,0.0,0.0,2689.25,Optimal
+PROD_012,Women's Thermal Puffer Jacket,Apparel & Fashion,743,87,0,0,272.39,0.0,0.0,272.39,Optimal

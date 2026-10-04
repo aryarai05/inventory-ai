@@ -1,0 +1,6 @@
+supplier_id,supplier_name,lead_time_mean,lead_time_std,reliability_score
+SUPP_01,Apex Micro Technologies,12.0,2.1,0.96
+SUPP_02,Global Fabric & Textiles,18.0,3.4,0.91
+SUPP_03,HomeCraft Industries,9.0,1.5,0.98
+SUPP_04,BioHealth Formulations,7.0,1.2,0.99
+SUPP_05,Vanguard Workspace Systems,14.0,2.5,0.93

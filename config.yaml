@@ -1,0 +1,76 @@
+# AI-Powered Inventory Demand Forecasting & Optimization System
+# Configuration File
+
+project:
+  name: "inventory-demand-forecasting-optimization"
+  version: "1.0.0"
+  random_seed: 42
+  tracking_uri: "sqlite:///mlruns.db"
+  experiment_name: "Inventory_Demand_Forecasting"
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  sample_dir: "data/sample"
+  database_path: "data/inventory.db"
+  powerbi_dir: "powerbi"
+  
+  # Simulation parameters
+  start_date: "2023-01-01"
+  end_date: "2025-12-31"
+  num_products: 50
+  num_categories: 5
+  num_regions: 5
+  num_warehouses: 5
+
+preprocessing:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  outlier_std_threshold: 3.5
+
+features:
+  lag_days: [1, 7, 14, 28]
+  rolling_windows: [7, 14, 28]
+  target_column: "sales_quantity"
+  date_column: "date"
+  group_column: "product_id"
+
+models:
+  baseline:
+    strategy: "lag_7"
+  moving_average:
+    window: 7
+  random_forest:
+    n_estimators: 100
+    max_depth: 12
+    min_samples_split: 5
+    random_state: 42
+  lightgbm:
+    n_estimators: 200
+    learning_rate: 0.05
+    num_leaves: 31
+    max_depth: 8
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+  tuning:
+    n_iter: 8
+    param_grid:
+      n_estimators: [100, 200]
+      learning_rate: [0.03, 0.08]
+      num_leaves: [20, 31, 50]
+      max_depth: [6, 10]
+
+inventory:
+  forecast_horizon_days: 14
+  service_level_z: 1.645   # 95% service level
+  default_holding_cost_rate: 0.20  # 20% annual holding cost rate
+  fixed_order_cost: 150.0  # $ per reorder event
+  stockout_penalty_multiplier: 1.5 # 1.5x profit margin lost
+  max_warehouse_capacity_units: 50000
+
+risk_thresholds:
+  critical_days_of_supply: 7.0
+  high_risk_days_of_supply: 14.0
+  excess_days_of_supply: 60.0

@@ -1,0 +1,34 @@
+# AI-Powered Inventory Demand Forecasting & Optimization System
+# Requirements Specification
+
+# Core Data Manipulation & Math
+numpy>=1.26.0,<2.0.0
+pandas>=2.0.0,<3.0.0
+scipy>=1.11.0,<1.15.0
+
+# Machine Learning & Time Series
+scikit-learn>=1.3.0
+lightgbm>=4.0.0
+
+# Mathematical Optimization
+pulp>=2.8.0,<3.0.0
+
+# Experiment Tracking & MLOps
+mlflow>=2.15.0
+
+# Interactive Dashboard & Visualization
+streamlit>=1.35.0
+plotly>=5.20.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Database & Storage
+SQLAlchemy>=2.0.0
+
+# Configuration & Utilities
+pyyaml>=6.0.0
+joblib>=1.3.0
+
+# Testing & Quality Assurance
+pytest>=7.4.0
+pytest-cov>=4.1.0

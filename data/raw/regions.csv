@@ -1,0 +1,6 @@
+region_id,region_name,warehouse_id,demand_weight
+REG_NE,North America - East,WH_NORTHEAST,1.15
+REG_WC,North America - West,WH_WESTCOAST,1.2
+REG_MW,Midwest Hub,WH_CENTRAL,0.95
+REG_SE,Southeast Distribution,WH_SOUTHEAST,1.05
+REG_NW,Pacific Northwest,WH_NORTHWEST,0.85
