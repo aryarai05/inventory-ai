@@ -170,22 +170,24 @@ Each classification includes a traceable diagnostic reason (e.g. *"Current inven
 
 ---
 
-## 9. Interactive Streamlit Dashboard
+## 9. Modern Enterprise Web Platform (FastAPI + SPA)
 
-Launch the application with:
+Launch the modern enterprise application with one command:
 ```bash
-streamlit run app/streamlit_app.py
+python run_app.py
 ```
+*(Your default web browser will automatically open `http://localhost:8000`)*
 
-### Dashboard Pages:
-1. **Executive Overview**: Enterprise KPI cards, 30-day moving average sales trends, category shares, regional fulfillment distributions.
-2. **Demand Forecasting**: Interactive SKU selector, horizon slider (7–30 days), historical actuals, forward LightGBM point forecasts with shaded 95% confidence intervals.
-3. **Inventory Intelligence**: Filterable risk status matrix, stockout warnings, safety stock buffers, days of supply, audit justification log.
-4. **Product Analysis**: Product-level deep dive, unit economics, supplier reliability, inventory depletion curves, stockout event markers.
-5. **Replenishment Optimization**: Interactive PuLP solver with live sliders for holding cost, fixed order cost, and penalty multipliers. Displays optimal daily order schedules and cost breakdowns.
-6. **Model Performance & MLOps**: Out-of-sample leaderboard, feature importance rankings, residual error histograms.
-7. **SQL Data Explorer**: Live interactive SQL query console connected to `data/inventory.db` with one-click CSV export.
+### Interactive Workspace Views:
+1. **Executive Command Center**: Live enterprise KPI cards, 30-day moving average sales trends, category shares, regional fulfillment distributions.
+2. **Demand Forecasting Studio**: Interactive SKU selector, horizon slider (7–30 days), historical actuals, forward LightGBM point forecasts with shaded 95% confidence intervals.
+3. **Inventory Intelligence & Risk Engine**: Filterable risk status matrix (`Critical`, `High`, `Medium`, `Healthy`, `Excess`), stockout warnings, safety stock buffers, days of supply, audit justification log.
+4. **Product Catalog & Performance**: SKU deep dive, unit economics, supplier reliability, inventory depletion curves, stockout event markers.
+5. **Replenishment Optimization Cockpit**: Interactive **PuLP Mixed-Integer Linear Programming solver** with live sliders for holding cost, fixed order cost, and penalty multipliers. Displays optimal daily order schedules and cost breakdowns in real-time.
+6. **MLOps & Model Leaderboard**: Out-of-sample leaderboard, feature importance rankings, residual error histograms.
+7. **SQL Analytics Studio**: Live interactive SQL query console connected to `data/inventory.db` with execution duration counter and one-click CSV export.
 8. **Technical Highlights**: Architecture diagrams, mathematical formulations, and engineering principles.
+9. **Interactive Swagger API Documentation**: Accessible live at `http://localhost:8000/docs`.
 
 ---
 
@@ -242,10 +244,11 @@ python optimize.py        # Runs PuLP MILP optimization & exports Power BI data
 python -m pytest -v tests/
 ```
 
-### 4. Launch the Dashboard
+### 4. Launch the Enterprise Web Platform
 ```bash
-streamlit run app/streamlit_app.py
+python run_app.py
 ```
+*(Automatically opens your default web browser at `http://localhost:8000`)*
 
 ---
 

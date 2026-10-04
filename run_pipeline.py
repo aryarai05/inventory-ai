@@ -40,8 +40,8 @@ def main():
     print("\n" + "=" * 75)
     print(f"  FULL END-TO-END PIPELINE COMPLETED SUCCESSFULLY IN {total_elapsed:.1f} SECONDS")
     print("=" * 75)
-    print("  To launch the interactive Streamlit dashboard, run:")
-    print("  streamlit run app/streamlit_app.py")
+    print("  To launch the enterprise decision platform, run:")
+    print("  python run_app.py")
     print("=" * 75)
 
 
